@@ -1,0 +1,8 @@
+# 第一阶段的直接依赖；实际安装版本记录在 requirements.txt。
+jupyter
+ipykernel
+numpy
+pandas
+scikit-learn
+matplotlib
+datasets

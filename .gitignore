@@ -1,0 +1,64 @@
+# Project environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors and OS
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local data and experiment artifacts
+data/raw/*
+data/processed/*
+data/evaluation/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/evaluation/.gitkeep
+experiments/results/*
+!experiments/results/.gitkeep
+
+# Models and common large weight formats
+models/*
+!models/README.md
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.gguf
+
+# Local caches and interrupted downloads
+.cache/
+.huggingface/
+.torch/
+.pip-cache/
+cache/
+*.part
+*.partial
+*.crdownload
+*.download
+*.tmp
+*.temp
+*.bak
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.local
+*secret*
+*token*
+*credential*
