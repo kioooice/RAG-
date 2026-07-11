@@ -1,0 +1,8 @@
+{
+  "rule_version": "ingestion-rules-v0.1",
+  "statuses": ["accepted", "accepted_with_warnings", "needs_ocr", "needs_review", "unsupported", "failed", "duplicate"],
+  "supported_types": ["docx", "pdf", "xlsx", "pptx", "png", "csv", "json", "markdown"],
+  "required_terms": ["MX-100", "75℃", "E07"],
+  "normalization": {"newlines": "LF", "collapse_inline_whitespace": true, "preserve_numbers_units_codes": true},
+  "deduplication": ["file_sha256", "normalized_content_sha256"]
+}

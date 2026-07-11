@@ -1,0 +1,694 @@
+{
+  "rule_version": "ingestion-rules-v0.1",
+  "file_count": 12,
+  "document_record_count": 12,
+  "knowledge_unit_count": 18,
+  "status_counts": {
+    "accepted": 7,
+    "needs_ocr": 2,
+    "duplicate": 1,
+    "unsupported": 1,
+    "needs_review": 1
+  },
+  "type_counts": {
+    "pptx": 1,
+    "json": 1,
+    "csv": 1,
+    "png": 1,
+    "docx": 1,
+    "markdown": 2,
+    "xlsx": 1,
+    "pdf": 3,
+    "unsupported": 1
+  },
+  "ground_truth": {
+    "passed": 38,
+    "total": 38,
+    "rate": 1.0,
+    "checks": [
+      {
+        "name": "route:mx100_manual.docx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_manual.docx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_text.pdf",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_text.pdf",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_scanned.pdf",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_scanned.pdf",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_records.xlsx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_records.xlsx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_brief.pptx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_brief.pptx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_image.png",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_image.png",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_devices.csv",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_devices.csv",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_config.json",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_config.json",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_notes.md",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_notes.md",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:wrong_extension.docx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:wrong_extension.docx",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:mx100_notes_duplicate.md",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:mx100_notes_duplicate.md",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "route:unsupported.bin",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "status:unsupported.bin",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "preserve:MX-100",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "preserve:75℃",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "preserve:E07",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "step:断电",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "step:清洁滤网",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "step:重启并记录结果",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "deterministic_document_ids",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "deterministic_unit_ids",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "no_duplicate_units_second_run",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "word_heading_trace",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "pdf_page_trace",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "xlsx_sheet_range",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "ppt_slide_trace",
+        "passed": true,
+        "detail": ""
+      },
+      {
+        "name": "tables_structured",
+        "passed": true,
+        "detail": ""
+      }
+    ]
+  },
+  "documents": [
+    {
+      "document_id": "doc_094d97eb9951c0d4cae2",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_brief.pptx",
+      "original_filename": "mx100_brief.pptx",
+      "detected_file_type": "pptx",
+      "file_size": 12629,
+      "checksum": "094d97eb9951c0d4cae28ead255df6736cf514c09e08e52c42ba36e35f371f34",
+      "version": "v1.2",
+      "parser_name": "openxml-pptx",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_bbb97b0b83da4f6606ed",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_config.json",
+      "original_filename": "mx100_config.json",
+      "detected_file_type": "json",
+      "file_size": 262,
+      "checksum": "bbb97b0b83da4f6606edb77a29562fa3d3884fcc9b48f703a4f12e0463d4abd6",
+      "version": "v1.2",
+      "parser_name": "json",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_4f93241a1d55ca1c6102",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_devices.csv",
+      "original_filename": "mx100_devices.csv",
+      "detected_file_type": "csv",
+      "file_size": 72,
+      "checksum": "4f93241a1d55ca1c6102fe9e0aca0148bd281858eebcab249e169c1660ef7d45",
+      "version": "v1.2",
+      "parser_name": "csv",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_1464f09fdcbfe1a039e9",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_image.png",
+      "original_filename": "mx100_image.png",
+      "detected_file_type": "png",
+      "file_size": 70994,
+      "checksum": "1464f09fdcbfe1a039e93eea31a0bd4b9bdb2dc0c4a4e3289bbda8dd22e5f8a9",
+      "version": "v1.2",
+      "parser_name": "png",
+      "parser_version": "1",
+      "processing_status": "needs_ocr",
+      "quality_score": 0.4,
+      "warnings": [
+        "image_has_no_machine_readable_text_layer"
+      ],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_0f5597a738e0280100ee",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_manual.docx",
+      "original_filename": "mx100_manual.docx",
+      "detected_file_type": "docx",
+      "file_size": 35793,
+      "checksum": "0f5597a738e0280100ee5328d33532637f89c1927ea250550dc35189d6856c81",
+      "version": "v1.2",
+      "parser_name": "python-docx",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_b289f50aab3a53ead99c",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_notes.md",
+      "original_filename": "mx100_notes.md",
+      "detected_file_type": "markdown",
+      "file_size": 210,
+      "checksum": "b289f50aab3a53ead99c1fa491333d78866e4d582a5b641e8ff43109990a3461",
+      "version": "v1.2",
+      "parser_name": "markdown",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_b289f50aab3a53ead99c",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_notes_duplicate.md",
+      "original_filename": "mx100_notes_duplicate.md",
+      "detected_file_type": "markdown",
+      "file_size": 210,
+      "checksum": "b289f50aab3a53ead99c1fa491333d78866e4d582a5b641e8ff43109990a3461",
+      "version": "v1.2",
+      "parser_name": "dedup",
+      "parser_version": "1",
+      "processing_status": "duplicate",
+      "quality_score": 1.0,
+      "warnings": [
+        "duplicate_of:mx100_notes.md"
+      ],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_0ec369a89b03d8b3f600",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_records.xlsx",
+      "original_filename": "mx100_records.xlsx",
+      "detected_file_type": "xlsx",
+      "file_size": 4419,
+      "checksum": "0ec369a89b03d8b3f60070ed131386634ffb03c3bf23f93407088d589fe3d709",
+      "version": "v1.2",
+      "parser_name": "openpyxl",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_901039b11c3a2f7ca32a",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_scanned.pdf",
+      "original_filename": "mx100_scanned.pdf",
+      "detected_file_type": "pdf",
+      "file_size": 66850,
+      "checksum": "901039b11c3a2f7ca32a3a927faf276dfbb6e10f3c7a863c4cfb702edf4accdc",
+      "version": "v1.2",
+      "parser_name": "pypdf",
+      "parser_version": "1",
+      "processing_status": "needs_ocr",
+      "quality_score": 0.4,
+      "warnings": [
+        "no_extractable_text:1_pages"
+      ],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_deb4bc0096b888192d09",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\mx100_text.pdf",
+      "original_filename": "mx100_text.pdf",
+      "detected_file_type": "pdf",
+      "file_size": 42109,
+      "checksum": "deb4bc0096b888192d09ad4c9c6764d605e50cb997a074add23b47ba3014a8f9",
+      "version": "v1.2",
+      "parser_name": "pypdf",
+      "parser_version": "1",
+      "processing_status": "accepted",
+      "quality_score": 1.0,
+      "warnings": [],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_e278da2a2879973ab723",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\unsupported.bin",
+      "original_filename": "unsupported.bin",
+      "detected_file_type": "unsupported",
+      "file_size": 20,
+      "checksum": "e278da2a2879973ab723542f5f10cb8e65cd1dcc515372e154fc2dda2dfbe2e0",
+      "version": "v1.2",
+      "parser_name": "unsupported",
+      "parser_version": "1",
+      "processing_status": "unsupported",
+      "quality_score": 0.0,
+      "warnings": [
+        "unsupported_file_type"
+      ],
+      "processed_at": "deterministic"
+    },
+    {
+      "document_id": "doc_43ca203ca79bb3fddc86",
+      "source_path": "D:\\AI-Lab\\data\\retrieval-adaptation-lab\\ingestion_002\\input\\wrong_extension.docx",
+      "original_filename": "wrong_extension.docx",
+      "detected_file_type": "pdf",
+      "file_size": 21869,
+      "checksum": "43ca203ca79bb3fddc86e7963d00d29684e0e18dd8cef193b3b7401e8abd7886",
+      "version": "v1.2",
+      "parser_name": "pypdf",
+      "parser_version": "1",
+      "processing_status": "needs_review",
+      "quality_score": 0.8,
+      "warnings": [
+        "extension_content_mismatch"
+      ],
+      "processed_at": "deterministic"
+    }
+  ],
+  "representative_units": [
+    {
+      "unit_id": "unit_2c277759ab742683746d",
+      "document_id": "doc_094d97eb9951c0d4cae2",
+      "unit_type": "slide",
+      "title": "Slide 1",
+      "section_path": [],
+      "text": "MX-100 维护说明\n版本 v1.2 | 2026-07-11 | 温度上限 75℃ | 故障代码 E07\n维护流程：1. 断电 2. 清洁滤网 3. 重启并记录结果\n警告：温度达到75℃时立即停机。\n代码\n现象\n处理\nE07\n温度过高\n检查散热\nE02\n传感器离线\n检查连接",
+      "structured_data": [
+        [
+          [
+            "代码",
+            "现象",
+            "处理"
+          ],
+          [
+            "E07",
+            "温度过高",
+            "检查散热"
+          ],
+          [
+            "E02",
+            "传感器离线",
+            "检查连接"
+          ]
+        ]
+      ],
+      "source_locator": {
+        "slide": 1
+      },
+      "metadata": {},
+      "quality_score": 1.0,
+      "parser_name": "openxml-pptx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_5a011d6f4cc5f7bf21e8",
+      "document_id": "doc_bbb97b0b83da4f6606ed",
+      "unit_type": "record",
+      "title": "mx100_config",
+      "section_path": [],
+      "text": "{\"model\": \"MX-100\", \"version\": \"v1.2\", \"max_temperature\": \"75℃\", \"fault_code\": \"E07\", \"steps\": [\"断电\", \"清洁滤网\", \"重启并记录结果\"], \"warning\": \"温度达到75℃时立即停机\", \"date\": \"2026-07-11\"}",
+      "structured_data": {
+        "model": "MX-100",
+        "version": "v1.2",
+        "max_temperature": "75℃",
+        "fault_code": "E07",
+        "steps": [
+          "断电",
+          "清洁滤网",
+          "重启并记录结果"
+        ],
+        "warning": "温度达到75℃时立即停机",
+        "date": "2026-07-11"
+      },
+      "source_locator": {
+        "json_path": "$"
+      },
+      "metadata": {},
+      "quality_score": 1.0,
+      "parser_name": "json",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_d2026ce4866fbfe12c00",
+      "document_id": "doc_4f93241a1d55ca1c6102",
+      "unit_type": "table",
+      "title": "mx100_devices",
+      "section_path": [],
+      "text": "model | version | max_temp | fault | date\nMX-100 | v1.2 | 75℃ | E07 | 2026-07-11",
+      "structured_data": [
+        [
+          "model",
+          "version",
+          "max_temp",
+          "fault",
+          "date"
+        ],
+        [
+          "MX-100",
+          "v1.2",
+          "75℃",
+          "E07",
+          "2026-07-11"
+        ]
+      ],
+      "source_locator": {
+        "rows": "1:2"
+      },
+      "metadata": {},
+      "quality_score": 1.0,
+      "parser_name": "csv",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_5722f0d9cf99599df133",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "mx100_manual",
+      "section_path": [],
+      "text": "MX-100 设备维护说明",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 1,
+        "heading_path": []
+      },
+      "metadata": {
+        "style": "Title"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_4659b9458119c895ecd4",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "mx100_manual",
+      "section_path": [],
+      "text": "版本 v1.2 | 日期 2026-07-11",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 2,
+        "heading_path": []
+      },
+      "metadata": {
+        "style": "Normal"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_b972a030e19c3a7cbb5b",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "安全参数",
+      "section_path": [],
+      "text": "安全参数",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 3,
+        "heading_path": [
+          "安全参数"
+        ]
+      },
+      "metadata": {
+        "style": "Heading 1"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_e06eae7c5e9ff3ccaad6",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "安全参数",
+      "section_path": [],
+      "text": "设备型号 MX-100，温度上限 75℃，故障代码 E07。",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 4,
+        "heading_path": [
+          "安全参数"
+        ]
+      },
+      "metadata": {
+        "style": "Normal"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_4eb5d2d03eaefa34f7bd",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "维护流程",
+      "section_path": [],
+      "text": "维护流程",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 5,
+        "heading_path": [
+          "维护流程"
+        ]
+      },
+      "metadata": {
+        "style": "Heading 1"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_771fbeda98d9310241cb",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "维护流程",
+      "section_path": [],
+      "text": "断电",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 6,
+        "heading_path": [
+          "维护流程"
+        ]
+      },
+      "metadata": {
+        "style": "List Number"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_4047e32b95aeec548cb6",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "维护流程",
+      "section_path": [],
+      "text": "清洁滤网",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 7,
+        "heading_path": [
+          "维护流程"
+        ]
+      },
+      "metadata": {
+        "style": "List Number"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_280adbe50541f6c1b196",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "维护流程",
+      "section_path": [],
+      "text": "重启并记录结果",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 8,
+        "heading_path": [
+          "维护流程"
+        ]
+      },
+      "metadata": {
+        "style": "List Number"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    },
+    {
+      "unit_id": "unit_f4266de16f23c06773f3",
+      "document_id": "doc_0f5597a738e0280100ee",
+      "unit_type": "paragraph",
+      "title": "维护流程",
+      "section_path": [],
+      "text": "警告：温度达到75℃时立即停机。",
+      "structured_data": null,
+      "source_locator": {
+        "paragraph": 9,
+        "heading_path": [
+          "维护流程"
+        ]
+      },
+      "metadata": {
+        "style": "Normal"
+      },
+      "quality_score": 1.0,
+      "parser_name": "python-docx",
+      "rule_version": "ingestion-rules-v0.1"
+    }
+  ],
+  "deterministic_second_run": true
+}

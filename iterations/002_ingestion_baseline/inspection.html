@@ -1,0 +1,95 @@
+<!doctype html><meta charset=utf-8><title>MX-100 ingestion inspection</title><style>body{font:15px system-ui;margin:36px;color:#18212b}table{border-collapse:collapse;width:100%}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#17324d;color:white}.ok{color:#18794e}.bad{color:#b42318}code{background:#f1f3f5;padding:2px 5px}</style><h1>MX-100 多格式资料接入检查</h1><p>文件 12 · KnowledgeUnit 18 · Ground Truth 38/38</p><h2>文件清单</h2><table><tr><th>文件</th><th>检测类型</th><th>状态</th><th>解析器</th><th>单元数</th><th>质量分</th><th>警告</th></tr><tr><td>mx100_brief.pptx</td><td>pptx</td><td>accepted</td><td>openxml-pptx</td><td>1</td><td>1.0</td><td></td></tr><tr><td>mx100_config.json</td><td>json</td><td>accepted</td><td>json</td><td>1</td><td>1.0</td><td></td></tr><tr><td>mx100_devices.csv</td><td>csv</td><td>accepted</td><td>csv</td><td>1</td><td>1.0</td><td></td></tr><tr><td>mx100_image.png</td><td>png</td><td>needs_ocr</td><td>png</td><td>0</td><td>0.4</td><td>image_has_no_machine_readable_text_layer</td></tr><tr><td>mx100_manual.docx</td><td>docx</td><td>accepted</td><td>python-docx</td><td>10</td><td>1.0</td><td></td></tr><tr><td>mx100_notes.md</td><td>markdown</td><td>accepted</td><td>markdown</td><td>1</td><td>1.0</td><td></td></tr><tr><td>mx100_notes_duplicate.md</td><td>markdown</td><td>duplicate</td><td>dedup</td><td>1</td><td>1.0</td><td>duplicate_of:mx100_notes.md</td></tr><tr><td>mx100_records.xlsx</td><td>xlsx</td><td>accepted</td><td>openpyxl</td><td>2</td><td>1.0</td><td></td></tr><tr><td>mx100_scanned.pdf</td><td>pdf</td><td>needs_ocr</td><td>pypdf</td><td>0</td><td>0.4</td><td>no_extractable_text:1_pages</td></tr><tr><td>mx100_text.pdf</td><td>pdf</td><td>accepted</td><td>pypdf</td><td>1</td><td>1.0</td><td></td></tr><tr><td>unsupported.bin</td><td>unsupported</td><td>unsupported</td><td>unsupported</td><td>0</td><td>0.0</td><td>unsupported_file_type</td></tr><tr><td>wrong_extension.docx</td><td>pdf</td><td>needs_review</td><td>pypdf</td><td>1</td><td>0.8</td><td>extension_content_mismatch</td></tr></table><h2>关键检查</h2><ul><li class=ok>PASS - route:mx100_manual.docx</li><li class=ok>PASS - status:mx100_manual.docx</li><li class=ok>PASS - route:mx100_text.pdf</li><li class=ok>PASS - status:mx100_text.pdf</li><li class=ok>PASS - route:mx100_scanned.pdf</li><li class=ok>PASS - status:mx100_scanned.pdf</li><li class=ok>PASS - route:mx100_records.xlsx</li><li class=ok>PASS - status:mx100_records.xlsx</li><li class=ok>PASS - route:mx100_brief.pptx</li><li class=ok>PASS - status:mx100_brief.pptx</li><li class=ok>PASS - route:mx100_image.png</li><li class=ok>PASS - status:mx100_image.png</li><li class=ok>PASS - route:mx100_devices.csv</li><li class=ok>PASS - status:mx100_devices.csv</li><li class=ok>PASS - route:mx100_config.json</li><li class=ok>PASS - status:mx100_config.json</li><li class=ok>PASS - route:mx100_notes.md</li><li class=ok>PASS - status:mx100_notes.md</li><li class=ok>PASS - route:wrong_extension.docx</li><li class=ok>PASS - status:wrong_extension.docx</li><li class=ok>PASS - route:mx100_notes_duplicate.md</li><li class=ok>PASS - status:mx100_notes_duplicate.md</li><li class=ok>PASS - route:unsupported.bin</li><li class=ok>PASS - status:unsupported.bin</li><li class=ok>PASS - preserve:MX-100</li><li class=ok>PASS - preserve:75℃</li><li class=ok>PASS - preserve:E07</li><li class=ok>PASS - step:断电</li><li class=ok>PASS - step:清洁滤网</li><li class=ok>PASS - step:重启并记录结果</li><li class=ok>PASS - deterministic_document_ids</li><li class=ok>PASS - deterministic_unit_ids</li><li class=ok>PASS - no_duplicate_units_second_run</li><li class=ok>PASS - word_heading_trace</li><li class=ok>PASS - pdf_page_trace</li><li class=ok>PASS - xlsx_sheet_range</li><li class=ok>PASS - ppt_slide_trace</li><li class=ok>PASS - tables_structured</li></ul><h2>代表性知识单元</h2><pre>[
+  {
+    &quot;unit_id&quot;: &quot;unit_2c277759ab742683746d&quot;,
+    &quot;document_id&quot;: &quot;doc_094d97eb9951c0d4cae2&quot;,
+    &quot;unit_type&quot;: &quot;slide&quot;,
+    &quot;title&quot;: &quot;Slide 1&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;MX-100 维护说明\n版本 v1.2 | 2026-07-11 | 温度上限 75℃ | 故障代码 E07\n维护流程：1. 断电 2. 清洁滤网 3. 重启并记录结果\n警告：温度达到75℃时立即停机。\n代码\n现象\n处理\nE07\n温度过高\n检查散热\nE02\n传感器离线\n检查连接&quot;,
+    &quot;structured_data&quot;: [
+      [
+        [
+          &quot;代码&quot;,
+          &quot;现象&quot;,
+          &quot;处理&quot;
+        ],
+        [
+          &quot;E07&quot;,
+          &quot;温度过高&quot;,
+          &quot;检查散热&quot;
+        ],
+        [
+          &quot;E02&quot;,
+          &quot;传感器离线&quot;,
+          &quot;检查连接&quot;
+        ]
+      ]
+    ],
+    &quot;source_locator&quot;: {
+      &quot;slide&quot;: 1
+    },
+    &quot;metadata&quot;: {},
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;openxml-pptx&quot;,
+    &quot;rule_version&quot;: &quot;ingestion-rules-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_5a011d6f4cc5f7bf21e8&quot;,
+    &quot;document_id&quot;: &quot;doc_bbb97b0b83da4f6606ed&quot;,
+    &quot;unit_type&quot;: &quot;record&quot;,
+    &quot;title&quot;: &quot;mx100_config&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;{\&quot;model\&quot;: \&quot;MX-100\&quot;, \&quot;version\&quot;: \&quot;v1.2\&quot;, \&quot;max_temperature\&quot;: \&quot;75℃\&quot;, \&quot;fault_code\&quot;: \&quot;E07\&quot;, \&quot;steps\&quot;: [\&quot;断电\&quot;, \&quot;清洁滤网\&quot;, \&quot;重启并记录结果\&quot;], \&quot;warning\&quot;: \&quot;温度达到75℃时立即停机\&quot;, \&quot;date\&quot;: \&quot;2026-07-11\&quot;}&quot;,
+    &quot;structured_data&quot;: {
+      &quot;model&quot;: &quot;MX-100&quot;,
+      &quot;version&quot;: &quot;v1.2&quot;,
+      &quot;max_temperature&quot;: &quot;75℃&quot;,
+      &quot;fault_code&quot;: &quot;E07&quot;,
+      &quot;steps&quot;: [
+        &quot;断电&quot;,
+        &quot;清洁滤网&quot;,
+        &quot;重启并记录结果&quot;
+      ],
+      &quot;warning&quot;: &quot;温度达到75℃时立即停机&quot;,
+      &quot;date&quot;: &quot;2026-07-11&quot;
+    },
+    &quot;source_locator&quot;: {
+      &quot;json_path&quot;: &quot;$&quot;
+    },
+    &quot;metadata&quot;: {},
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;json&quot;,
+    &quot;rule_version&quot;: &quot;ingestion-rules-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_d2026ce4866fbfe12c00&quot;,
+    &quot;document_id&quot;: &quot;doc_4f93241a1d55ca1c6102&quot;,
+    &quot;unit_type&quot;: &quot;table&quot;,
+    &quot;title&quot;: &quot;mx100_devices&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;model | version | max_temp | fault | date\nMX-100 | v1.2 | 75℃ | E07 | 2026-07-11&quot;,
+    &quot;structured_data&quot;: [
+      [
+        &quot;model&quot;,
+        &quot;version&quot;,
+        &quot;max_temp&quot;,
+        &quot;fault&quot;,
+        &quot;date&quot;
+      ],
+      [
+        &quot;MX-100&quot;,
+        &quot;v1.2&quot;,
+        &quot;75℃&quot;,
+        &quot;E07&quot;,
+        &quot;2026-07-11&quot;
+      ]
+    ],
+    &quot;source_locator&quot;: {
+      &quot;rows&quot;: &quot;1:2&quot;
+    },
+    &quot;metadata&quot;: {},
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;csv&quot;,
+    &quot;rule_version&quot;: &quot;ingestion-rules-v0.1&quot;
+  }
+]</pre>

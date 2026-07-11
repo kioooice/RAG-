@@ -1,0 +1,6 @@
+﻿file,processing_status,failure_stage,error_or_warning,retryable,recommended_action
+mx100_image.png,needs_ocr,routing_or_quality,image_has_no_machine_readable_text_layer,True,OCR separately
+mx100_notes_duplicate.md,duplicate,routing_or_quality,duplicate_of:mx100_notes.md,False,skip or add parser
+mx100_scanned.pdf,needs_ocr,routing_or_quality,no_extractable_text:1_pages,True,OCR separately
+unsupported.bin,unsupported,routing_or_quality,unsupported_file_type,False,skip or add parser
+wrong_extension.docx,needs_review,routing_or_quality,extension_content_mismatch,True,manual review

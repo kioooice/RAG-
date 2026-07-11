@@ -1,0 +1,19 @@
+{
+  "rule_version": "ingestion-rules-v0.1",
+  "files": {
+    "mx100_manual.docx": {"type": "docx", "status": "accepted"},
+    "mx100_text.pdf": {"type": "pdf", "status": "accepted"},
+    "mx100_scanned.pdf": {"type": "pdf", "status": "needs_ocr"},
+    "mx100_records.xlsx": {"type": "xlsx", "status": "accepted"},
+    "mx100_brief.pptx": {"type": "pptx", "status": "accepted"},
+    "mx100_image.png": {"type": "png", "status": "needs_ocr"},
+    "mx100_devices.csv": {"type": "csv", "status": "accepted"},
+    "mx100_config.json": {"type": "json", "status": "accepted"},
+    "mx100_notes.md": {"type": "markdown", "status": "accepted"},
+    "wrong_extension.docx": {"type": "pdf", "status": "needs_review"},
+    "mx100_notes_duplicate.md": {"type": "markdown", "status": "duplicate"},
+    "unsupported.bin": {"type": "unsupported", "status": "unsupported"}
+  },
+  "required_terms": ["MX-100", "75℃", "E07"],
+  "steps": ["断电", "清洁滤网", "重启并记录结果"]
+}
