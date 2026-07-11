@@ -1,0 +1,79 @@
+{
+  "dataset_id": "galileo-ai/ragbench",
+  "dataset_revision": "97808f3e5fd16ede40bbff6c2949af8139b2eb7b",
+  "evaluation_query_count": 132,
+  "fixed_tfidf_config": {
+    "lowercase": true,
+    "min_df": 1,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "norm": "l2",
+    "sublinear_tf": true,
+    "token_pattern": "(?u)\\b\\w\\w+\\b"
+  },
+  "idf_comparison": {
+    "baseline_feature_count": 9528,
+    "expanded_feature_count": 12339,
+    "shared_feature_count": 9528,
+    "shared_features_with_changed_idf": 9528
+  },
+  "ranking_change_summary": {
+    "declined": 33,
+    "improved": 0,
+    "unchanged": 99
+  },
+  "train_document_occurrences_read": 3162,
+  "train_fields_used": [
+    "documents"
+  ],
+  "variants": {
+    "corpus_152": {
+      "corpus_document_count": 152,
+      "splits": {
+        "test": {
+          "average_query_latency_ms": 0.8244166664636313,
+          "misses_at_5": 5,
+          "mrr": 0.7643939393939393,
+          "query_count": 66,
+          "recall_at_1": 0.6666666666666666,
+          "recall_at_3": 0.8333333333333334,
+          "recall_at_5": 0.9242424242424242
+        },
+        "validation": {
+          "average_query_latency_ms": 0.8068303027495417,
+          "misses_at_5": 4,
+          "mrr": 0.7568181818181818,
+          "query_count": 66,
+          "recall_at_1": 0.6212121212121212,
+          "recall_at_3": 0.9090909090909091,
+          "recall_at_5": 0.9393939393939394
+        }
+      }
+    },
+    "corpus_221": {
+      "corpus_document_count": 221,
+      "splits": {
+        "test": {
+          "average_query_latency_ms": 0.9867136364901494,
+          "misses_at_5": 10,
+          "mrr": 0.7093434343434343,
+          "query_count": 66,
+          "recall_at_1": 0.6060606060606061,
+          "recall_at_3": 0.803030303030303,
+          "recall_at_5": 0.8484848484848485
+        },
+        "validation": {
+          "average_query_latency_ms": 0.9318151512133861,
+          "misses_at_5": 6,
+          "mrr": 0.6810606060606061,
+          "query_count": 66,
+          "recall_at_1": 0.5151515151515151,
+          "recall_at_3": 0.8181818181818182,
+          "recall_at_5": 0.9090909090909091
+        }
+      }
+    }
+  }
+}

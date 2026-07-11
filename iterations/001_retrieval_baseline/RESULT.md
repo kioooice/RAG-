@@ -11,7 +11,7 @@
 - Query：`question`
 - 候选文档：`documents`
 - Relevant Document：`all_relevant_sentence_keys` 的数字前缀映射到 `documents` 下标
-- Reference Answer：`response`；同 Query 的多个答案全部保存在 `reference_answers`，但不参与检索
+- Generated Response：`response`。每个重复 Query 的两行使用相同且顺序一致的 `documents`，其中一行来自 `gpt-3.5-turbo-0125`，另一行来自 `claude-3-haiku-20240307`，两个 Generated Response 均不同。它们不是 Reference Answer 或 Ground Truth，当前检索实验没有使用这些文本。
 - 原始 Query ID：`id`
 
 `documents` 是每个 Query 预先提供的文本列表，对本实验而言已经是可索引的文档/段落单元。数据还提供 `documents_sentences`，但没有提供原始 PDF、页面坐标或完整切块过程，因此不能据此断言官方最初如何切块。本轮没有实现或评价前处理。
@@ -103,7 +103,7 @@ $env:PIP_CACHE_DIR='D:\AI-Lab\cache\pip'
 - Corpus 是 RAGBench 已提供候选文档的并集，不是完整电子手册知识库；93.18% Recall@5 不能解释为真实全库效果。
 - 每个 Query 原本已有预先候选文档；取所有候选的并集只能制造有限的跨 Query 干扰，不能替代从与 Query 无关的完整资料库中检索。
 - 缺少原始 PDF、OCR、版面、页码、标题层级和源到段落的转换记录，因此不能评价资料解析、切块和元数据构建质量。
-- `validation + test` 被共同作为一次性最终评测集合，没有独立开发集；本轮没有调参，但未来若调参必须另建开发划分。
+- `validation + test` 被共同作为一次性最终评测集合，没有独立开发集；本轮没有读取 Generated Response 进行检索或调参，未来若调参必须另建开发划分。
 - 每个 Split 的 132 行实际只有 66 个唯一 Query；本轮按 Query 合并上下文，避免重复加权。
 - 1 条源记录缺少相关键，依赖同 Query 的另一条有效记录完成映射。
 - Relevant Document 来自模型辅助的句级标注，可能存在争议，并非完全人工金标准。
@@ -112,3 +112,7 @@ $env:PIP_CACHE_DIR='D:\AI-Lab\cache\pip'
 ## 12. 下一轮建议
 
 下一轮最值得验证的单一假设是：对一小批可追溯的原始手册文件，能否稳定完成解析、必要的 OCR、版面/标题识别、切块和页码等元数据构建，并让每个检索文本单元可回溯到原始位置。该前处理能力必须作为独立迭代验证，不混入本轮，也不在此自动开始。
+
+## 13. 152段与221段Corpus收口对照
+
+保留原152段结果不变后，额外只使用train的`documents`扩展出221段Corpus；没有读取train的Query、Generated Response或相关性标签，也没有修改TF-IDF配置。相同132题上的结果整体下降：0题排名改善、33题下降、99题不变；Validation的Recall@5由0.9394降至0.9091，Test由0.9242降至0.8485。扩容后9,528个共有特征的IDF全部重新计算并发生变化，因此下降同时包含新增文档竞争与权重变化。完整分Split指标和逐题清单见`CORPUS_COMPARISON.md`、`corpus_comparison.json`和`corpus_ranking_changes.csv`。
