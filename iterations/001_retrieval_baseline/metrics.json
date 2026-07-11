@@ -1,0 +1,32 @@
+{
+  "average_document_length_chars": 816.9276315789474,
+  "average_document_length_words": 137.9078947368421,
+  "average_query_latency_ms": 0.7128734846033198,
+  "candidate_document_occurrences": 792,
+  "config": "emanual",
+  "corpus_document_count": 152,
+  "dataset_id": "galileo-ai/ragbench",
+  "dataset_revision": "97808f3e5fd16ede40bbff6c2949af8139b2eb7b",
+  "duplicate_query_records_merged": 132,
+  "misses_at_5": 9,
+  "mrr": 0.7606060606060606,
+  "query_count": 132,
+  "recall_at_1": 0.6439393939393939,
+  "recall_at_3": 0.8712121212121212,
+  "recall_at_5": 0.9318181818181818,
+  "seed": 20260711,
+  "source_records_without_relevant_mapping": 1,
+  "source_row_count": 264,
+  "split": "validation+test",
+  "tfidf_config": {
+    "lowercase": true,
+    "min_df": 1,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "norm": "l2",
+    "sublinear_tf": true,
+    "token_pattern": "(?u)\\b\\w\\w+\\b"
+  }
+}
