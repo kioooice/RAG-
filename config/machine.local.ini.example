@@ -1,0 +1,29 @@
+; Copy this file to config/machine.local.ini on each computer.
+; machine.local.ini is ignored by Git. Keep secrets in the external secrets
+; directory and never put API keys in this file.
+
+[machine]
+; Change this root on another computer if D:\AI-Lab is not available.
+ai_lab_root=D:\AI-Lab
+
+[paths]
+cache_root=D:\AI-Lab\cache
+data_root=D:\AI-Lab\data
+models_root=D:\AI-Lab\models
+envs_root=D:\AI-Lab\envs
+runtimes_root=D:\AI-Lab\runtimes
+secrets_root=D:\AI-Lab\secrets
+
+[environments]
+docling_env=D:\AI-Lab\envs\retrieval-adaptation-lab-docling
+bge_env=D:\AI-Lab\envs\retrieval-adaptation-lab-bge-m3
+llama_env=D:\AI-Lab\envs\retrieval-adaptation-lab-llama-cpp
+round6_env=D:\AI-Lab\envs\retrieval-adaptation-lab-llama-cpp-round6
+round7_env=D:\AI-Lab\envs\retrieval-adaptation-lab-llama-cpp-round7
+
+[assets]
+docling_artifacts=D:\AI-Lab\models\docling\2.111.0
+bge_model=D:\AI-Lab\models\bge-m3\5617a9f61b028005a4858fdac845db406aefb181
+llama_cpp=D:\AI-Lab\runtimes\llama.cpp\b9968\llama-server.exe
+qwen4_model=D:\AI-Lab\models\qwen3-4b-instruct-2507
+qwen9_model=D:\AI-Lab\models\qwen3.5-9b

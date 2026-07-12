@@ -14,8 +14,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from src.machine_config import load_machine_config
 
-DEFAULT_CONFIG_PATH = Path(r"D:\AI-Lab\secrets\retrieval-adaptation-lab\mimo.ini")
+
+DEFAULT_CONFIG_PATH = Path(os.environ.get("AI_LAB_ROOT", "D:/AI-Lab")) / "secrets" / "retrieval-adaptation-lab" / "mimo.ini"
 DEFAULT_BASE_URL = "https://api.xiaomimimo.com/v1"
 DEFAULT_MODEL = "mimo-v2.5-pro"
 MAX_REQUESTS_CAP = 70
@@ -79,7 +81,11 @@ class CredentialConfig:
 
 def resolve_config_path() -> Path:
     override = os.environ.get("MIMO_SECRET_FILE", "").strip()
-    return Path(override).expanduser() if override else DEFAULT_CONFIG_PATH
+    if override:
+        return Path(override).expanduser()
+    # Resolve the ignored machine-local config so a second computer can use
+    # its own secrets_root without exporting AI_LAB_ROOT first.
+    return load_machine_config().mimo_config
 
 
 def ensure_config_template(path: Path) -> bool:

@@ -25,6 +25,7 @@ import numpy as np
 import psutil
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 # The Round 5 module contains the locked llama.cpp launcher, deterministic
@@ -33,6 +34,9 @@ import run_grounded_generation as baseline
 from src.retrieval.semantic import DenseRetriever
 from src.retrieval.tfidf import Document
 from sentence_transformers import SentenceTransformer
+from src.machine_config import load_machine_config
+
+MACHINE_CONFIG = load_machine_config()
 
 
 SEED = 42
@@ -554,7 +558,7 @@ def main() -> int:
     parser.add_argument("--bge-model-path", type=Path, required=True)
     parser.add_argument("--llama-server", type=Path, required=True)
     parser.add_argument("--model-path", type=Path, required=True)
-    parser.add_argument("--runtime-dir", type=Path, default=Path("D:/AI-Lab/envs/retrieval-adaptation-lab-llama-cpp-round6"))
+    parser.add_argument("--runtime-dir", type=Path, default=MACHINE_CONFIG.round6_runtime)
     parser.add_argument("--port", type=int, default=18081)
     args = parser.parse_args()
     out = args.iteration_dir
@@ -569,10 +573,8 @@ def main() -> int:
         raise ValueError("Round 6 requires the 30-row v2 dataset and 29 exported KnowledgeUnits")
 
     # Keep all caches local and offline.  No package/model download is allowed.
-    os.environ.setdefault("HF_HOME", "D:/AI-Lab/cache/huggingface")
-    os.environ.setdefault("HF_HUB_CACHE", "D:/AI-Lab/cache/huggingface/hub")
-    os.environ.setdefault("HF_DATASETS_CACHE", "D:/AI-Lab/cache/huggingface/datasets")
-    os.environ.setdefault("TRANSFORMERS_CACHE", "D:/AI-Lab/cache/huggingface/transformers")
+    for name, path in MACHINE_CONFIG.cache_locations.items():
+        os.environ.setdefault(name, str(path))
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
 

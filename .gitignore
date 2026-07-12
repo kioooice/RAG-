@@ -61,8 +61,20 @@ cache/
 !.env.example
 *.local
 *.local.ini
+config/machine.local.ini
+machine.local.ini
 *secret*
 *token*
 .secrets/
 secrets/
 mimo.ini
+
+# Independent environments, runtimes and local API logs
+envs/
+.envs/
+runtimes/
+*.log
+*.stderr.log
+*.stdout.log
+api_logs/
+logs/

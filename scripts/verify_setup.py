@@ -40,6 +40,7 @@ REQUIRED_PATHS = [
     "src/retrieval",
     "src/generation",
     "src/generation/credentials.py",
+    "src/machine_config.py",
     "src/evaluation",
     "src/finetuning",
     "experiments/configs",
@@ -51,6 +52,8 @@ REQUIRED_PATHS = [
     "scripts/start_lab.ps1",
     "scripts/verify_setup.py",
     "scripts/run_mimo_generation.py",
+    "scripts/bootstrap_machine.ps1",
+    "scripts/verify_machine_sync.py",
     "scripts/prepare_emanual.py",
     "scripts/evaluate_tfidf.py",
     "scripts/query_tfidf.py",
@@ -60,6 +63,7 @@ REQUIRED_PATHS = [
     "tests/test_retrieval_metrics.py",
     "tests/test_tfidf_retriever.py",
     "tests/test_mimo_credentials.py",
+    "tests/test_machine_config.py",
     "iterations/001_retrieval_baseline/BRIEF.md",
     "iterations/001_retrieval_baseline/RESULT.md",
     "iterations/001_retrieval_baseline/metrics.json",
@@ -70,6 +74,10 @@ REQUIRED_PATHS = [
     "iterations/001_retrieval_baseline/corpus_ranking_changes.csv",
     "configs/ingestion_rules_v0.1.json",
     "config/mimo.ini.example",
+    "config/machine.local.ini.example",
+    "artifacts/EXTERNAL_ASSETS.md",
+    "PROJECT_STATE.md",
+    "MACHINE_SETUP.md",
     "scripts/build_ingestion_office_fixtures.mjs",
     "scripts/generate_ingestion_fixture.py",
     "scripts/run_ingestion_baseline.py",
@@ -90,7 +98,7 @@ REQUIRED_PATHS = [
 ]
 
 WRITABLE_DIRECTORIES = ["data", "experiments", "models"]
-IGNORED_DIRECTORY_NAMES = {".git", ".venv", "__pycache__", ".ipynb_checkpoints"}
+IGNORED_DIRECTORY_NAMES = {".git", ".venv", "envs", ".envs", "runtimes", "__pycache__", ".ipynb_checkpoints"}
 MODEL_EXTENSIONS = {".bin", ".ckpt", ".gguf", ".onnx", ".pt", ".pth", ".safetensors"}
 SECRET_PATTERNS = {
     "private key": re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),

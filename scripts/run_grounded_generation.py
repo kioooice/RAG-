@@ -33,6 +33,9 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.retrieval.semantic import DenseRetriever
 from src.retrieval.tfidf import Document, load_corpus
+from src.machine_config import load_machine_config
+
+MACHINE_CONFIG = load_machine_config()
 
 MODEL_ID = "Qwen/Qwen3-4B-Instruct-2507"
 MODEL_REVISION = "cdbee75f17c01a7cc42f958dc650907174af0554"
@@ -562,7 +565,7 @@ def main() -> int:
     parser.add_argument("--bge-model-path", type=Path, required=True)
     parser.add_argument("--llama-server", type=Path, required=True)
     parser.add_argument("--model-path", type=Path, required=True)
-    parser.add_argument("--runtime-dir", type=Path, default=Path("D:/AI-Lab/envs/retrieval-adaptation-lab-llama-cpp"))
+    parser.add_argument("--runtime-dir", type=Path, default=MACHINE_CONFIG.round5_runtime)
     parser.add_argument("--port", type=int, default=18080)
     args = parser.parse_args()
 
@@ -576,10 +579,8 @@ def main() -> int:
     system_prompt = extract_system_prompt(args.prompt)
 
     # Keep all Hugging Face/cache variables process-local and on D:.
-    os.environ.setdefault("HF_HOME", "D:/AI-Lab/cache/huggingface")
-    os.environ.setdefault("HF_HUB_CACHE", "D:/AI-Lab/cache/huggingface/hub")
-    os.environ.setdefault("HF_DATASETS_CACHE", "D:/AI-Lab/cache/huggingface/datasets")
-    os.environ.setdefault("TRANSFORMERS_CACHE", "D:/AI-Lab/cache/huggingface/transformers")
+    for name, path in MACHINE_CONFIG.cache_locations.items():
+        os.environ.setdefault(name, str(path))
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
 

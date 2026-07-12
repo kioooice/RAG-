@@ -14,6 +14,7 @@ CACHE_VARIABLES = (
     "HF_HOME",
     "HF_HUB_CACHE",
     "HF_DATASETS_CACHE",
+    "TRANSFORMERS_CACHE",
     "TORCH_HOME",
     "PIP_CACHE_DIR",
 )
@@ -65,11 +66,22 @@ def kernel_status() -> dict[str, object]:
 
 
 def main() -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(project_root))
+    from src.machine_config import load_machine_config
+
+    machine = load_machine_config()
+    drive_roots = {"project_drive": Path(project_root.anchor), "asset_drive": Path(machine.ai_lab_root.anchor)}
     report = {
+        "project_root": str(project_root),
+        "machine_config": machine.to_public(),
         "cache_environment": {
             name: path_status(os.environ.get(name)) for name in CACHE_VARIABLES
         },
-        "disk_space": {"C": disk_status("C:\\"), "D": disk_status("D:\\")},
+        "configured_cache_locations": {
+            name: path_status(str(path)) for name, path in machine.cache_locations.items()
+        },
+        "disk_space": {name: disk_status(str(path)) for name, path in drive_roots.items()},
         "python": {"executable": sys.executable, "prefix": sys.prefix, "base_prefix": sys.base_prefix},
         "jupyter_kernel": kernel_status(),
     }

@@ -25,8 +25,12 @@ import numpy as np
 import psutil
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 import run_context_assembly as assembly
+from src.machine_config import load_machine_config
+
+MACHINE_CONFIG = load_machine_config()
 
 
 MODEL_ID = "Qwen/Qwen3.5-9B"
@@ -536,7 +540,7 @@ def main() -> int:
     parser.add_argument("--evidence-units", type=Path, default=PROJECT_ROOT / "iterations/006_context_and_evidence_assembly/evidence_units.jsonl")
     parser.add_argument("--llama-server", type=Path, required=True)
     parser.add_argument("--model-path", type=Path, required=True)
-    parser.add_argument("--runtime-dir", type=Path, default=Path("D:/AI-Lab/envs/retrieval-adaptation-lab-llama-cpp-round7"))
+    parser.add_argument("--runtime-dir", type=Path, default=MACHINE_CONFIG.round7_runtime)
     parser.add_argument("--port", type=int, default=18082)
     args = parser.parse_args()
     args.iteration_dir.mkdir(parents=True, exist_ok=True)
@@ -547,9 +551,8 @@ def main() -> int:
     by_id = {unit["unit_id"]: unit for unit in units}
     if len(rows) != 30 or len(by_id) != 29:
         raise ValueError("007 requires the unchanged 30-row 006-v2 dataset and 29 KnowledgeUnits")
-    os.environ["HF_HOME"] = "D:/AI-Lab/cache/huggingface"
-    os.environ["HF_HUB_CACHE"] = "D:/AI-Lab/cache/huggingface/hub"
-    os.environ["HF_DATASETS_CACHE"] = "D:/AI-Lab/cache/huggingface/datasets"
+    for name, path in MACHINE_CONFIG.cache_locations.items():
+        os.environ.setdefault(name, str(path))
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     if args.mode == "smoke":

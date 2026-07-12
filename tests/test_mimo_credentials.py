@@ -25,6 +25,25 @@ def write_config(path: Path, api_key: str = "") -> None:
 
 
 class CredentialLoaderTests(unittest.TestCase):
+    def test_machine_local_secrets_root_is_used_without_environment_override(self):
+        with tempfile.TemporaryDirectory() as directory:
+            machine_config = Path(directory) / "machine.local.ini"
+            secrets_root = Path(directory) / "portable-secrets"
+            machine_config.write_text(
+                "[paths]\n"
+                f"secrets_root={secrets_root}\n",
+                encoding="utf-8",
+            )
+            with patch.dict(
+                os.environ,
+                {"MACHINE_CONFIG_PATH": str(machine_config), "MIMO_SECRET_FILE": "", "MIMO_API_KEY": ""},
+                clear=False,
+            ):
+                config = load_credentials(create_template=False)
+
+            self.assertEqual(config.config_path, secrets_root / "retrieval-adaptation-lab" / "mimo.ini")
+            self.assertEqual(config.status, "missing_credentials")
+
     def test_missing_config_creates_secret_free_template(self):
         with tempfile.TemporaryDirectory() as directory:
             config_path = Path(directory) / "secrets" / "mimo.ini"
