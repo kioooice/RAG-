@@ -37,6 +37,8 @@ CONTEXT_RESULTS_PATH = PROJECT_ROOT / "iterations/006_context_and_evidence_assem
 LOCAL_9B_RESULTS_PATH = PROJECT_ROOT / "iterations/007_stronger_generation_model/generation_results.jsonl"
 PROMPT_PATH = PROJECT_ROOT / "iterations/005_grounded_generation/PROMPT.md"
 MODEL = "mimo-v2.5-pro"
+RUN_ID_DEFAULT = "mimo_008_formal_v2"
+TOTAL_REQUEST_CAP = 90
 SMOKE_QUERY_IDS = ("mxq-001", "mxq-002", "mxq-022")
 FORMAL_CONDITIONS = (("oracle_packet", "oracle"), ("dense_packet", "dense"))
 MAX_COMPLETION_TOKENS = 256
@@ -380,21 +382,34 @@ def estimate_cost(dataset: list[dict[str, Any]], packets: dict[tuple[str, str], 
     }
 
 
-def manifest_path() -> Path:
+def manifest_path(run_id: str | None = None) -> Path:
+    if run_id:
+        return ROUND_DIR / f"request_manifest_{run_id}.jsonl"
     return ROUND_DIR / "request_manifest.jsonl"
 
 
-def existing_attempts() -> int:
-    path = manifest_path()
+def result_path(run_id: str | None = None) -> Path:
+    # The first formal batch owns the required canonical result filename. A
+    # later batch uses a suffixed file rather than overwriting it.
+    canonical = ROUND_DIR / "cloud_generation_results.jsonl"
+    if run_id and not canonical.exists():
+        return canonical
+    if run_id:
+        return ROUND_DIR / f"cloud_generation_results_{run_id}.jsonl"
+    return canonical
+
+
+def existing_attempts(path: Path | None = None) -> int:
+    path = path or manifest_path()
     if not path.exists():
         return 0
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
 
 
-def write_manifest(record: dict[str, Any]) -> None:
+def write_manifest(record: dict[str, Any], path: Path | None = None) -> None:
     ROUND_DIR.mkdir(parents=True, exist_ok=True)
     safe = {key: value for key, value in record.items() if key not in {"payload", "headers", "api_key", "authorization"}}
-    with manifest_path().open("a", encoding="utf-8", newline="\n") as handle:
+    with (path or manifest_path()).open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(safe, ensure_ascii=False, sort_keys=True) + "\n")
 
 
@@ -437,18 +452,24 @@ def http_request(
     query_id: str,
     condition: str,
     fingerprints: dict[str, str] | None = None,
+    run_id: str | None = None,
+    run_manifest: Path | None = None,
+    historical_attempts: int = 0,
+    total_request_cap: int | None = None,
 ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     if not config.has_key:
         raise RuntimeError("missing_credentials")
     if config.status != "ready":
         raise RuntimeError("credential_preflight_failed")
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    manifest_file = run_manifest or manifest_path()
+    request_cap = total_request_cap or config.max_requests
     attempt = 0
     while True:
-        if existing_attempts() >= config.max_requests:
+        if historical_attempts + existing_attempts(manifest_file) >= request_cap:
             raise RuntimeError("request_limit_reached")
         attempt += 1
-        request_id = f"{phase}:{query_id}:{condition}:{attempt}"
+        request_id = f"{run_id or 'mimo_008_legacy'}:{phase}:{query_id}:{condition}:{attempt}"
         started = time.perf_counter()
         request = urllib.request.Request(
             config.endpoint,
@@ -463,29 +484,30 @@ def http_request(
             latency_ms = (time.perf_counter() - started) * 1000
             usage = extract_usage(parsed if isinstance(parsed, dict) else {})
             cost = request_cost(usage, config)
-            write_manifest({
+            manifest_record = {
                 "request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition,
                 "attempt": attempt, "status": "success", "http_status": 200,
                 "model": MODEL, "response_model": parsed.get("model") if isinstance(parsed, dict) else None,
                 "latency_ms": round(latency_ms, 3), "usage": usage, "cost_usd": cost,
                 "input_fingerprints": fingerprints or {},
-            })
-            return parsed if isinstance(parsed, dict) else None, {"latency_ms": latency_ms, "usage": usage, "cost_usd": cost, "retries": attempt - 1}
+                "run_id": run_id or "mimo_008_legacy",
+            }
+            return parsed if isinstance(parsed, dict) else None, {"latency_ms": latency_ms, "usage": usage, "cost_usd": cost, "retries": attempt - 1, "manifest_record": manifest_record}
         except urllib.error.HTTPError as exc:
             category = "http_429" if exc.code == 429 else ("http_5xx" if exc.code >= 500 else "http_error")
-            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "http_status": exc.code, "error_category": category, "model": MODEL, "input_fingerprints": fingerprints or {}})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "http_status": exc.code, "error_category": category, "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
             if category in {"http_429", "http_5xx"} and attempt <= RETRY_LIMIT:
                 time.sleep(2 ** (attempt - 1))
                 continue
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": category}
         except (TimeoutError, urllib.error.URLError):
-            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "timeout_or_network", "model": MODEL, "input_fingerprints": fingerprints or {}})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "timeout_or_network", "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
             if attempt <= RETRY_LIMIT:
                 time.sleep(2 ** (attempt - 1))
                 continue
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "timeout_or_network"}
         except (json.JSONDecodeError, OSError):
-            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "invalid_response", "model": MODEL, "input_fingerprints": fingerprints or {}})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "invalid_response", "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "invalid_response"}
 
 
@@ -521,6 +543,9 @@ def run_smoke(config: CredentialConfig, dataset: list[dict[str, Any]], packets: 
             output["retry_count"] = info.get("retries", 0)
             output["input_fingerprints"] = fingerprints
             rows.append(output)
+            manifest_record = info.pop("manifest_record", None)
+            if manifest_record:
+                write_manifest(manifest_record, manifest_path())
     passed = bool(rows) and all(
         row["structured_output"] and row["response_model_correct"] and row["thinking_disabled_observed"] and row["tools_absent"] and not row["failure_types"]
         for row in rows
@@ -675,35 +700,68 @@ def validate_resume_state(
     return completed, list(dict.fromkeys(issues))
 
 
-def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: dict[tuple[str, str], dict[str, Any]], system_prompt: str) -> int:
+def run_full(
+    config: CredentialConfig,
+    dataset: list[dict[str, Any]],
+    packets: dict[tuple[str, str], dict[str, Any]],
+    system_prompt: str,
+    run_id: str | None = None,
+    rerun_smoke: bool = True,
+) -> int:
     smoke_report = json.loads(smoke_report_path().read_text(encoding="utf-8")) if smoke_report_path().exists() else None
     if not smoke_report or smoke_report.get("status") != "passed":
-        if not run_smoke(config, dataset, packets, system_prompt):
+        if not rerun_smoke or not run_smoke(config, dataset, packets, system_prompt):
+            print(json.dumps({"status": "blocked", "reason": "smoke_must_already_be_passed"}, ensure_ascii=False))
             return 2
+
+    active_run_id = run_id or "mimo_008_legacy"
+    batch_result_path = result_path(run_id)
+    active_manifest_path = manifest_path(run_id)
+    historical_manifest_path = manifest_path() if run_id else None
+    historical_attempts = existing_attempts(historical_manifest_path) if historical_manifest_path else 0
+    historical_manifest = load_jsonl(historical_manifest_path) if historical_manifest_path and historical_manifest_path.exists() else []
+    total_request_cap = TOTAL_REQUEST_CAP if run_id else config.max_requests
+
+    # Establish both files before the first new request and verify they are writable.
+    if not batch_result_path.exists():
+        write_jsonl(batch_result_path, [])
+    if not active_manifest_path.exists():
+        write_jsonl(active_manifest_path, [])
+    with batch_result_path.open("a", encoding="utf-8"):
+        pass
+    with active_manifest_path.open("a", encoding="utf-8"):
+        pass
+
     fingerprints = fixed_input_fingerprints(dataset, packets, system_prompt)
-    result_path = ROUND_DIR / "cloud_generation_results.jsonl"
-    rows = load_jsonl(result_path) if result_path.exists() else []
-    manifest = load_jsonl(manifest_path()) if manifest_path().exists() else []
+    rows = load_jsonl(batch_result_path)
+    manifest = load_jsonl(active_manifest_path)
     valid_completed, resume_issues = validate_resume_state(rows, manifest, dataset, fingerprints)
     if resume_issues:
-        print(json.dumps({"status": "resume_state_invalid", "issues": resume_issues, "valid_completed_formal_count": len(valid_completed), "actual_attempt_count": len(manifest)}, ensure_ascii=False))
+        print(json.dumps({"status": "resume_state_invalid", "run_id": active_run_id, "issues": resume_issues, "valid_completed_formal_count": len(valid_completed), "actual_attempt_count": historical_attempts + len(manifest)}, ensure_ascii=False))
         return 2
-    rows = valid_completed
-    processed = {(row.get("query_id"), row.get("condition")) for row in rows}
-    formal_requests = len(dataset) * len(FORMAL_CONDITIONS)
-    planned_remaining = formal_requests - len(processed)
-    actual_attempt_count = len(manifest)
-    available_remaining = config.max_requests - actual_attempt_count
+
+    processed = {(row.get("query_id"), row.get("condition")) for row in valid_completed}
+    expected_formal_count = len(dataset) * len(FORMAL_CONDITIONS)
+    planned_remaining = expected_formal_count - len(processed)
+    actual_attempt_count = historical_attempts + len(manifest)
+    available_remaining = total_request_cap - actual_attempt_count
     retry_reserve = min(RETRY_LIMIT * 2, max(0, available_remaining - planned_remaining))
     cost_estimate = estimate_cost(dataset, packets, system_prompt, planned_remaining + retry_reserve)
-    spent_cost = sum(float(row.get("cost_usd") or 0) for row in manifest if isinstance(row.get("cost_usd"), (int, float)))
+    spent_cost = sum(
+        float(row.get("cost_usd") or 0)
+        for row in historical_manifest + manifest
+        if isinstance(row.get("cost_usd"), (int, float))
+    )
     continuation = {
+        "run_id": active_run_id,
         "planned_remaining": planned_remaining,
         "available_remaining": available_remaining,
         "retry_reserve": retry_reserve,
         "actual_attempt_count": actual_attempt_count,
+        "request_cap": total_request_cap,
         "spent_cost_usd": spent_cost,
         "remaining_cost_estimate_usd": cost_estimate["payg_worst_case_usd_estimate"],
+        "input_fingerprints": fingerprints,
     }
     if planned_remaining > available_remaining:
         print(json.dumps({"status": "blocked", "reason": "planned_remaining_exceeds_available", **continuation}, ensure_ascii=False))
@@ -711,17 +769,32 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
     if spent_cost + float(cost_estimate["payg_worst_case_usd_estimate"]) > config.max_cost_usd:
         print(json.dumps({"status": "blocked", "reason": "remaining_cost_exceeds_budget", **continuation}, ensure_ascii=False))
         return 2
+    print(json.dumps({"status": "continuing", **continuation}, ensure_ascii=False))
+
+    rows = valid_completed
     for query_row in dataset:
         for condition, _ in FORMAL_CONDITIONS:
             if (query_row["query_id"], condition) in processed:
                 continue
             packet = packets[(query_row["query_id"], condition)]
             payload = make_payload(system_prompt, query_row["query"], packet)
-            response, info = http_request(config, payload, "formal", query_row["query_id"], condition, fingerprints)
+            response, info = http_request(
+                config,
+                payload,
+                "formal",
+                query_row["query_id"],
+                condition,
+                fingerprints,
+                run_id=active_run_id,
+                run_manifest=active_manifest_path,
+                historical_attempts=historical_attempts,
+                total_request_cap=total_request_cap,
+            )
             _, parsed, message = parse_content(response or {})
             response_model = (response or {}).get("model") if response else None
             row = evaluate_result(query_row, packet, parsed, response_model, info.get("usage", {}), info.get("latency_ms", 0), info.get("error"))
             row["phase"] = "formal"
+            row["run_id"] = active_run_id
             row["retry_count"] = info.get("retries", 0)
             if message.get("reasoning_content"):
                 row["failure_types"] = list(dict.fromkeys(row["failure_types"] + ["reasoning_content_present"]))
@@ -731,14 +804,36 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
                 row["failure_types"] = list(dict.fromkeys(row["failure_types"] + ["response_model_mismatch"]))
             row["cost_usd"] = info.get("cost_usd")
             row["input_fingerprints"] = fingerprints
+            # The scored response is flushed before its manifest entry is committed.
+            append_jsonl(batch_result_path, row)
+            manifest_record = info.pop("manifest_record", None)
+            if manifest_record:
+                write_manifest(manifest_record, active_manifest_path)
             rows.append(row)
-            append_jsonl(result_path, row)
-    metrics = {"round": "008_cloud_generation_upper_bound", "model": MODEL, "conditions": {condition: aggregate([row for row in rows if row["condition"] == condition], config) for condition, _ in FORMAL_CONDITIONS}, "request_attempts": existing_attempts(), "budget_usd": config.max_cost_usd, "credential_source": config.credential_source, "structured_output": {"type": "json_object"}, "thinking": {"type": "disabled"}, "seed": None, "temperature": TEMPERATURE, "top_p": TOP_P}
+
+    metrics = {
+        "round": "008_cloud_generation_upper_bound",
+        "run_id": active_run_id,
+        "model": MODEL,
+        "conditions": {condition: aggregate([row for row in rows if row["condition"] == condition], config) for condition, _ in FORMAL_CONDITIONS},
+        "historical_request_attempts": historical_attempts,
+        "run_request_attempts": existing_attempts(active_manifest_path),
+        "request_attempts_total": historical_attempts + existing_attempts(active_manifest_path),
+        "request_cap": total_request_cap,
+        "budget_usd": config.max_cost_usd,
+        "credential_source": config.credential_source,
+        "structured_output": {"type": "json_object"},
+        "thinking": {"type": "disabled"},
+        "seed": None,
+        "temperature": TEMPERATURE,
+        "top_p": TOP_P,
+        "input_fingerprints": fingerprints,
+    }
     write_json(ROUND_DIR / "metrics.json", metrics)
     write_comparison(rows)
     write_failures(rows)
     write_inspection(rows)
-    print(json.dumps({"status": "completed", "metrics": str(ROUND_DIR / "metrics.json"), "requests": existing_attempts()}, ensure_ascii=False))
+    print(json.dumps({"status": "completed", "run_id": active_run_id, "metrics": str(ROUND_DIR / "metrics.json"), "requests_total": historical_attempts + existing_attempts(active_manifest_path)}, ensure_ascii=False))
     return 0
 
 
@@ -771,6 +866,7 @@ def main() -> int:
     group.add_argument("--preflight", action="store_true")
     group.add_argument("--smoke", action="store_true")
     group.add_argument("--full", action="store_true")
+    parser.add_argument("--run-id", default=RUN_ID_DEFAULT, help="Formal batch identifier used with --full")
     args = parser.parse_args()
 
     if args.preflight:
@@ -788,7 +884,7 @@ def main() -> int:
         return 2
     if args.smoke:
         return 0 if run_smoke(config, dataset, packets, system_prompt) else 2
-    return run_full(config, dataset, packets, system_prompt)
+    return run_full(config, dataset, packets, system_prompt, run_id=args.run_id, rerun_smoke=False)
 
 
 if __name__ == "__main__":
