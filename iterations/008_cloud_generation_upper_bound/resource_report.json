@@ -1,0 +1,39 @@
+{
+  "round": "008_cloud_generation_upper_bound",
+  "run_id": "mimo_008_formal_v2",
+  "model": "mimo-v2.5-pro",
+  "execution": "cloud_api_serial",
+  "formal_requests": 60,
+  "historical_attempts": 22,
+  "total_attempts": 82,
+  "request_cap": 90,
+  "retry_attempts": 0,
+  "retry_budget": 4,
+  "tokens": {
+    "input": 41144,
+    "cached_input": 17728,
+    "reasoning": 0,
+    "output": 3843,
+    "total": 44987
+  },
+  "latency_ms": {
+    "oracle_p50": 1892.3207,
+    "oracle_p95": 4177.11153,
+    "dense_p50": 2248.0853,
+    "dense_p95": 4349.47669,
+    "formal_total": 137530.8996
+  },
+  "cost_usd": {
+    "historical": 0.006267666,
+    "run": 0.0135931908,
+    "total": 0.0198608568,
+    "limit": 2.0
+  },
+  "local_cpu_rss_peak_mb": null,
+  "local_gpu_memory_peak_mb": null,
+  "telemetry_status": "not_collected_for_remote_api",
+  "notes": [
+    "No local model or runtime was loaded in this batch.",
+    "Provider-side resource usage is not exposed by the recorded API fields."
+  ]
+}

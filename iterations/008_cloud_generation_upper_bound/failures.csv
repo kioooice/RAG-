@@ -1,0 +1,6 @@
+query_id,condition,query,question_type,failure_types,answer,citations,context_unit_ids,schema_valid,citation_valid
+mxq-012,dense_packet,把滤网处理干净以后下一步做什么？,answerable,"[""required_fact_miss""]",重启并记录结果。,"[""unit_0861be8afba46dca2c51"", ""unit_1d7396a1c70ac608332a"", ""unit_5a011d6f4cc5f7bf21e8""]","[""unit_967fd3b16072f006b613"", ""unit_0861be8afba46dca2c51"", ""unit_1d7396a1c70ac608332a"", ""unit_0163e2051a2ebd5d095e"", ""unit_5a011d6f4cc5f7bf21e8""]",True,True
+mxq-015,oracle_packet,感知元件掉线后怎样恢复？,answerable,"[""required_fact_miss""]",检查连接。,"[""unit_94850904cf039fcc1678""]","[""unit_94850904cf039fcc1678""]",True,True
+mxq-018,oracle_packet,E02和E07中哪个代表传感器离线？,answerable,"[""required_fact_miss""]",E02代表传感器离线。,"[""unit_94850904cf039fcc1678""]","[""unit_94850904cf039fcc1678""]",True,True
+mxq-018,dense_packet,E02和E07中哪个代表传感器离线？,answerable,"[""required_fact_miss""]",E02代表传感器离线。,"[""unit_931b71f8106f5858e816"", ""unit_d2ea24bd55aa60e58786"", ""unit_94850904cf039fcc1678""]","[""unit_931b71f8106f5858e816"", ""unit_d2ea24bd55aa60e58786"", ""unit_4e6240ee45aff210b43d"", ""unit_94850904cf039fcc1678""]",True,True
+mxq-019,dense_packet,E03故障是否应该检查散热？,answerable,"[""false_refusal"", ""required_fact_miss""]",资料中未提供E03故障与检查散热的关联信息。,[],"[""unit_4e6240ee45aff210b43d"", ""unit_d2ea24bd55aa60e58786"", ""unit_94850904cf039fcc1678"", ""unit_931b71f8106f5858e816""]",True,True

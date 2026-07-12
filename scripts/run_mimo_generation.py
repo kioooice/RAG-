@@ -45,6 +45,7 @@ MAX_COMPLETION_TOKENS = 256
 TEMPERATURE = 0.0
 TOP_P = 1.0
 RETRY_LIMIT = 2
+GLOBAL_RETRY_BUDGET = 4
 REQUEST_TIMEOUT_SECONDS = 90
 
 # Official MiMo pay-as-you-go rates shown on the public English pricing page.
@@ -392,9 +393,15 @@ def result_path(run_id: str | None = None) -> Path:
     # The first formal batch owns the required canonical result filename. A
     # later batch uses a suffixed file rather than overwriting it.
     canonical = ROUND_DIR / "cloud_generation_results.jsonl"
-    if run_id and not canonical.exists():
-        return canonical
     if run_id:
+        if not canonical.exists():
+            return canonical
+        try:
+            first_line = next(line for line in canonical.read_text(encoding="utf-8").splitlines() if line.strip())
+            if json.loads(first_line).get("run_id") == run_id:
+                return canonical
+        except (OSError, StopIteration, json.JSONDecodeError):
+            pass
         return ROUND_DIR / f"cloud_generation_results_{run_id}.jsonl"
     return canonical
 
@@ -404,6 +411,28 @@ def existing_attempts(path: Path | None = None) -> int:
     if not path.exists():
         return 0
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
+
+
+def retry_attempts_used(path: Path | None = None) -> int:
+    """Count retry attempts already represented in a manifest.
+
+    A request's first attempt is not a retry; subsequent attempt numbers are.
+    Grouping by the logical request avoids counting both an error row and its
+    later successful retry twice.
+    """
+
+    path = path or manifest_path()
+    if not path.exists():
+        return 0
+    attempts_by_request: dict[tuple[Any, Any, Any, Any], int] = {}
+    for row in load_jsonl(path):
+        try:
+            attempt = int(row.get("attempt") or 1)
+        except (TypeError, ValueError):
+            attempt = 1
+        key = (row.get("run_id"), row.get("phase"), row.get("query_id"), row.get("condition"))
+        attempts_by_request[key] = max(attempts_by_request.get(key, 1), attempt)
+    return sum(max(0, attempt - 1) for attempt in attempts_by_request.values())
 
 
 def write_manifest(record: dict[str, Any], path: Path | None = None) -> None:
@@ -456,6 +485,7 @@ def http_request(
     run_manifest: Path | None = None,
     historical_attempts: int = 0,
     total_request_cap: int | None = None,
+    retry_budget: int = GLOBAL_RETRY_BUDGET,
 ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     if not config.has_key:
         raise RuntimeError("missing_credentials")
@@ -492,23 +522,61 @@ def http_request(
                 "input_fingerprints": fingerprints or {},
                 "run_id": run_id or "mimo_008_legacy",
             }
-            return parsed if isinstance(parsed, dict) else None, {"latency_ms": latency_ms, "usage": usage, "cost_usd": cost, "retries": attempt - 1, "manifest_record": manifest_record}
+            return parsed if isinstance(parsed, dict) else None, {
+                "request_id": request_id,
+                "attempt": attempt,
+                "request_status": "success",
+                "latency_ms": latency_ms,
+                "usage": usage,
+                "cost_usd": cost,
+                "retries": attempt - 1,
+                "manifest_record": manifest_record,
+            }
         except urllib.error.HTTPError as exc:
             category = "http_429" if exc.code == 429 else ("http_5xx" if exc.code >= 500 else "http_error")
             write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "http_status": exc.code, "error_category": category, "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
-            if category in {"http_429", "http_5xx"} and attempt <= RETRY_LIMIT:
+            if category in {"http_429", "http_5xx"} and attempt <= RETRY_LIMIT and retry_attempts_used(manifest_file) < retry_budget:
                 time.sleep(2 ** (attempt - 1))
                 continue
-            return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": category}
+            final_error = category if retry_attempts_used(manifest_file) < retry_budget else "retry_budget_exhausted"
+            return None, {
+                "request_id": request_id,
+                "attempt": attempt,
+                "request_status": "error",
+                "latency_ms": (time.perf_counter() - started) * 1000,
+                "usage": {},
+                "cost_usd": None,
+                "retries": attempt - 1,
+                "error": final_error,
+            }
         except (TimeoutError, urllib.error.URLError):
             write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "timeout_or_network", "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
-            if attempt <= RETRY_LIMIT:
+            if attempt <= RETRY_LIMIT and retry_attempts_used(manifest_file) < retry_budget:
                 time.sleep(2 ** (attempt - 1))
                 continue
-            return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "timeout_or_network"}
+            final_error = "timeout_or_network" if retry_attempts_used(manifest_file) < retry_budget else "retry_budget_exhausted"
+            return None, {
+                "request_id": request_id,
+                "attempt": attempt,
+                "request_status": "error",
+                "latency_ms": (time.perf_counter() - started) * 1000,
+                "usage": {},
+                "cost_usd": None,
+                "retries": attempt - 1,
+                "error": final_error,
+            }
         except (json.JSONDecodeError, OSError):
             write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "invalid_response", "model": MODEL, "input_fingerprints": fingerprints or {}, "run_id": run_id or "mimo_008_legacy"}, manifest_file)
-            return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "invalid_response"}
+            return None, {
+                "request_id": request_id,
+                "attempt": attempt,
+                "request_status": "error",
+                "latency_ms": (time.perf_counter() - started) * 1000,
+                "usage": {},
+                "cost_usd": None,
+                "retries": attempt - 1,
+                "error": "invalid_response",
+            }
 
 
 def smoke_report_path() -> Path:
@@ -541,6 +609,10 @@ def run_smoke(config: CredentialConfig, dataset: list[dict[str, Any]], packets: 
             output["tools_absent"] = not bool(message.get("tool_calls")) and not bool((response or {}).get("usage", {}).get("web_search_usage"))
             output["content_received"] = bool(content)
             output["retry_count"] = info.get("retries", 0)
+            output["request_id"] = info.get("request_id")
+            output["request_status"] = info.get("request_status")
+            output["request_attempt"] = info.get("attempt")
+            output["http_status"] = (info.get("manifest_record") or {}).get("http_status")
             output["input_fingerprints"] = fingerprints
             rows.append(output)
             manifest_record = info.pop("manifest_record", None)
@@ -684,6 +756,9 @@ def validate_resume_state(
 
     completed = [row for row in rows if row.get("phase") == "formal"]
     completed_keys = [(row.get("query_id"), row.get("condition")) for row in completed]
+    completed_request_ids = [row.get("request_id") for row in completed]
+    if any(not request_id for request_id in completed_request_ids) or len(completed_request_ids) != len(set(completed_request_ids)):
+        issues.append("formal_result_request_id_missing_or_duplicate")
     if len(completed_keys) != len(set(completed_keys)):
         issues.append("formal_result_duplicate_pair")
     if not all(key in expected for key in completed_keys):
@@ -695,6 +770,12 @@ def validate_resume_state(
             issues.append("formal_result_unparseable")
         if row.get("input_fingerprints") != fingerprints:
             issues.append("formal_result_input_fingerprint_mismatch")
+    manifest_ids_by_key: dict[tuple[Any, Any], set[Any]] = {}
+    for manifest_row in formal_manifest:
+        key = (manifest_row.get("query_id"), manifest_row.get("condition"))
+        manifest_ids_by_key.setdefault(key, set()).add(manifest_row.get("request_id"))
+    if any(row.get("request_id") not in manifest_ids_by_key.get(key, set()) for key, row in zip(completed_keys, completed)):
+        issues.append("formal_result_manifest_request_id_mismatch")
     if len(completed) != len(set(completed_keys)):
         issues.append("formal_result_count_not_unique")
     return completed, list(dict.fromkeys(issues))
@@ -745,7 +826,7 @@ def run_full(
     planned_remaining = expected_formal_count - len(processed)
     actual_attempt_count = historical_attempts + len(manifest)
     available_remaining = total_request_cap - actual_attempt_count
-    retry_reserve = min(RETRY_LIMIT * 2, max(0, available_remaining - planned_remaining))
+    retry_reserve = min(GLOBAL_RETRY_BUDGET, max(0, available_remaining - planned_remaining))
     cost_estimate = estimate_cost(dataset, packets, system_prompt, planned_remaining + retry_reserve)
     spent_cost = sum(
         float(row.get("cost_usd") or 0)
@@ -789,6 +870,7 @@ def run_full(
                 run_manifest=active_manifest_path,
                 historical_attempts=historical_attempts,
                 total_request_cap=total_request_cap,
+                retry_budget=GLOBAL_RETRY_BUDGET,
             )
             _, parsed, message = parse_content(response or {})
             response_model = (response or {}).get("model") if response else None
@@ -803,6 +885,10 @@ def run_full(
             if response_model != MODEL:
                 row["failure_types"] = list(dict.fromkeys(row["failure_types"] + ["response_model_mismatch"]))
             row["cost_usd"] = info.get("cost_usd")
+            row["request_id"] = info.get("request_id")
+            row["request_status"] = info.get("request_status")
+            row["request_attempt"] = info.get("attempt")
+            row["http_status"] = (info.get("manifest_record") or {}).get("http_status")
             row["input_fingerprints"] = fingerprints
             # The scored response is flushed before its manifest entry is committed.
             append_jsonl(batch_result_path, row)
@@ -811,15 +897,33 @@ def run_full(
                 write_manifest(manifest_record, active_manifest_path)
             rows.append(row)
 
+    run_manifest_rows = load_jsonl(active_manifest_path)
+    historical_cost = sum(
+        float(row.get("cost_usd") or 0)
+        for row in historical_manifest
+        if isinstance(row.get("cost_usd"), (int, float))
+    )
+    run_cost = sum(
+        float(row.get("cost_usd") or 0)
+        for row in run_manifest_rows
+        if isinstance(row.get("cost_usd"), (int, float))
+    )
     metrics = {
         "round": "008_cloud_generation_upper_bound",
         "run_id": active_run_id,
         "model": MODEL,
         "conditions": {condition: aggregate([row for row in rows if row["condition"] == condition], config) for condition, _ in FORMAL_CONDITIONS},
         "historical_request_attempts": historical_attempts,
-        "run_request_attempts": existing_attempts(active_manifest_path),
-        "request_attempts_total": historical_attempts + existing_attempts(active_manifest_path),
+        "run_request_attempts": len(run_manifest_rows),
+        "request_attempts_total": historical_attempts + len(run_manifest_rows),
         "request_cap": total_request_cap,
+        "historical_cost_usd": historical_cost,
+        "run_cost_usd": run_cost,
+        "total_cost_usd": historical_cost + run_cost,
+        "retry_attempts": retry_attempts_used(active_manifest_path),
+        "retry_budget": GLOBAL_RETRY_BUDGET,
+        "formal_result_count": len(rows),
+        "smoke_request_count": len(SMOKE_QUERY_IDS) * len(FORMAL_CONDITIONS),
         "budget_usd": config.max_cost_usd,
         "credential_source": config.credential_source,
         "structured_output": {"type": "json_object"},
@@ -833,7 +937,7 @@ def run_full(
     write_comparison(rows)
     write_failures(rows)
     write_inspection(rows)
-    print(json.dumps({"status": "completed", "run_id": active_run_id, "metrics": str(ROUND_DIR / "metrics.json"), "requests_total": historical_attempts + existing_attempts(active_manifest_path)}, ensure_ascii=False))
+    print(json.dumps({"status": "completed", "run_id": active_run_id, "metrics": str(ROUND_DIR / "metrics.json"), "requests_total": historical_attempts + len(run_manifest_rows), "total_cost_usd": historical_cost + run_cost}, ensure_ascii=False))
     return 0
 
 
