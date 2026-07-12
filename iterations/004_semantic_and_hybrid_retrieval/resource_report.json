@@ -1,0 +1,22 @@
+{
+  "python": "3.14.2",
+  "python_executable": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-bge-m3\\Scripts\\python.exe",
+  "environment_path": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-bge-m3",
+  "environment_bytes": 1040371593,
+  "model_path": "D:\\AI-Lab\\models\\bge-m3\\5617a9f61b028005a4858fdac845db406aefb181",
+  "model_bytes": 2293339869,
+  "model_load_seconds": 3.1482866999995167,
+  "model_load_peak_rss_bytes": 814469120,
+  "device_used": "cpu",
+  "torch_version": "2.13.0",
+  "sentence_transformers_version": "5.6.0",
+  "cuda_build": null,
+  "cuda_available": false,
+  "peak_gpu_bytes": 0,
+  "detected_gpu": "NVIDIA GeForce RTX 4050 Laptop GPU, 6141 MiB, 595.79",
+  "pip_check": "No broken requirements found.",
+  "offline_mode_verified": true,
+  "selective_model_download_bytes": 2293333250,
+  "python_package_download_bytes": 214991762,
+  "full_model_repository_bytes_not_downloaded": 4587317404
+}
