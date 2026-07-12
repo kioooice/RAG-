@@ -5,9 +5,9 @@
 ## 当前坐标
 
 - 最后完成迭代：009 Claim-Level Grounding 离线声明审计。
-- 最后提交（本轮）：`chore: prepare cross-device study workflow`；完成后以 `git rev-parse HEAD` 读取本轮提交哈希。
+- 本轮提交链：`a41e542417406f0e364c3875e6fa8b7bf3f0f9d4`（跨设备工作流）和 `94f92a1`（按授权删除遗留Notebook）；当前最新哈希以 `git rev-parse HEAD` 读取。
 - 上一已提交哈希：`cf025a1a82b86578deeeda223c612d932ef2b4fc` (`feat: audit claim-level grounding`)。
-- 当前分支：`main`；未配置远程仓库；两个用户Notebook改动未处理。
+- 当前分支：`main`；远程为私有仓库 `origin`；两个遗留Notebook已按用户明确授权删除。
 - 当前工作区：`D:\Projects\study\retrieval-adaptation-lab`。
 
 ## 六大能力区域
@@ -37,7 +37,7 @@
 - MiMo服务的API留存、训练使用、零数据留存和存储区域政策仍有unknown项。
 - Docling模型目录和llama.cpp发行包的独立SHA-256没有在历史报告中锁定。
 - 运行代码默认值已支持机器配置/环境覆盖，但每台机器仍需填写自己的`machine.local.ini`和外部资产路径。
-- 两个用户Notebook仍是未处理工作区改动，未经授权不删除、不修改、不暂存。
+- 两个遗留Notebook已删除，不再作为同步内容；后续新Notebook仍需先确认用途再纳入项目。
 
 ## 外部资产身份
 

@@ -1,4 +1,4 @@
-"""验证第一阶段项目环境、目录、Notebook 与基本安全边界。"""
+"""验证第一阶段项目环境、目录与基本安全边界。"""
 
 from __future__ import annotations
 
@@ -31,7 +31,6 @@ REQUIRED_PATHS = [
     ".gitignore",
     "requirements.in",
     "requirements.txt",
-    "notebooks/01_dataset_and_rag_structure.ipynb",
     "data/raw",
     "data/processed",
     "data/evaluation",
@@ -138,6 +137,9 @@ def project_files() -> list[Path]:
 
 def verify_notebook(checks: Verification) -> None:
     notebook_path = PROJECT_ROOT / "notebooks/01_dataset_and_rag_structure.ipynb"
+    if not notebook_path.exists():
+        checks.check(True, "未发现已授权删除的遗留 Notebook", "")
+        return
     try:
         notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
         nbformat.validate(nbformat.from_dict(notebook))
@@ -213,7 +215,7 @@ def main() -> int:
     if checks.failures:
         print(f"\n验证失败：{len(checks.failures)} 项。")
         return 1
-    print("\n验证通过：项目环境、结构、Notebook 和安全检查均符合第一阶段要求。")
+    print("\n验证通过：项目环境、结构和安全检查均符合第一阶段要求。")
     return 0
 
 
