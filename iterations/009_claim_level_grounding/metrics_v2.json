@@ -1,0 +1,42 @@
+{
+  "source_round": "008_cloud_generation_upper_bound",
+  "source_result_count": 60,
+  "source_answer_count": 60,
+  "factual_claim_count": 96,
+  "claim_count": 117,
+  "classification_counts": {
+    "evaluator_false_positive": 63,
+    "non_factual_language": 21,
+    "supported_explicit": 28,
+    "supported_inference": 5
+  },
+  "source_strict_unsupported_answer_count": 26,
+  "source_strict_unsupported_answer_rate": 0.43333333333333335,
+  "audited_strict_flagged_claim_count": 63,
+  "audited_strict_flag_false_positive_share": 1.0,
+  "answer_level_unsupported_rate": 0.0,
+  "answer_level_unsupported_answers": 0,
+  "claim_level_unsupported_rate": 0.0,
+  "unsupported_claim_count": 0,
+  "material_unsupported_rate": 0.0,
+  "material_unsupported_over_all_claims": 0.0,
+  "material_unsupported_claim_count": 0,
+  "claim_citation_coverage": 1.0,
+  "cited_claim_support": 1.0,
+  "cited_claim_count": 96,
+  "cited_supported_claim_count": 96,
+  "contradicted_claim_count": 0,
+  "evaluator_false_positive_share_of_all_claims": 0.5384615384615384,
+  "api_evaluation": {
+    "status": "not_run",
+    "reason": "offline_audit_found_evaluator_false_positive_rate_over_20_percent",
+    "run_id_reserved": "mimo_009_claim_grounding_v1",
+    "request_count": 0,
+    "cost_usd": 0.0
+  },
+  "source_hashes": {
+    "source_metrics_sha256": "a9193252938723b77874622ef6ff17684c8cfeb2ee5fe4423303c1b95ead0e1e",
+    "source_results_sha256": "1c4bd1e775526b765b5b5f4bbce613a4d4665da92a64909ab8eaf2aef2857be0"
+  },
+  "source_run_id": "mimo_008_formal_v2"
+}

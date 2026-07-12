@@ -1,0 +1,2 @@
+query_id,condition,failure_stage,error_or_warning,retryable,recommended_action
+,,offline_audit_gate,未发现需要API复测的真实unsupported claim；009云端阶段未运行,no,先修正评测口径或保留声明级协议供后续审批
