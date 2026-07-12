@@ -15,6 +15,7 @@ __pycache__/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+!.vscode/tasks.json
 .idea/
 .DS_Store
 Thumbs.db
@@ -59,6 +60,9 @@ cache/
 .env.*
 !.env.example
 *.local
+*.local.ini
 *secret*
 *token*
-*credential*
+.secrets/
+secrets/
+mimo.ini
