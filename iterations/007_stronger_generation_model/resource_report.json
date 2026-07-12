@@ -1,0 +1,79 @@
+{
+  "python": "3.14.2",
+  "python_executable": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-bge-m3\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "model": {
+    "id": "Qwen/Qwen3.5-9B",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "license": "Apache-2.0",
+    "gguf_repo": "unsloth/Qwen3.5-9B-GGUF",
+    "gguf_revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+    "gguf_file": "Qwen3.5-9B-Q4_K_M.gguf",
+    "gguf_size_bytes": 5680522464,
+    "gguf_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "text_only": true,
+    "mmproj_downloaded": false
+  },
+  "runtime": {
+    "name": "llama.cpp",
+    "release": "b9968",
+    "path": "D:\\AI-Lab\\runtimes\\llama.cpp\\b9968",
+    "server": {
+      "url": "http://127.0.0.1:18082",
+      "pid": 16904,
+      "stderr": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-llama-cpp-round7\\server.stderr.log",
+      "args": [
+        "D:\\AI-Lab\\runtimes\\llama.cpp\\b9968\\llama-server.exe",
+        "-m",
+        "D:\\AI-Lab\\models\\qwen3.5-9b\\unsloth-3885219b6810b007914f3a7950a8d1b469d598a5\\Qwen3.5-9B-Q4_K_M.gguf",
+        "-c",
+        "8192",
+        "-np",
+        "1",
+        "-ngl",
+        "0",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18082",
+        "--no-webui",
+        "--offline",
+        "--temp",
+        "0",
+        "--top-k",
+        "1",
+        "--seed",
+        "42",
+        "-n",
+        "256",
+        "--reasoning",
+        "off",
+        "--chat-template-kwargs",
+        "{\"enable_thinking\": false}"
+      ]
+    },
+    "offline": true,
+    "mmproj": null
+  },
+  "resources": {
+    "peak_evaluator_rss_bytes": 435380224,
+    "peak_server_rss_bytes": 11032539136,
+    "peak_total_rss_bytes": 11051966464,
+    "peak_gpu_memory_mib": 916,
+    "pagefile_before_bytes": 2944503808,
+    "pagefile_peak_used_bytes": 12871540736,
+    "pagefile_after_bytes": 5166215168,
+    "pagefile_delta_after_bytes": 2221711360,
+    "pagefile_initial_allocated_base_mb": 10752,
+    "pagefile_peak_allocated_base_mb": 14897,
+    "pagefile_auto_expanded": true,
+    "gpu_backend_used": "CPU (-ngl 0)"
+  },
+  "disk": {
+    "model_size_bytes": 5680522464,
+    "d_free_bytes_after": 262859300864
+  },
+  "smoke_report_path": "D:\\Projects\\study\\retrieval-adaptation-lab\\iterations\\007_stronger_generation_model\\smoke_report.json",
+  "offline_repeatable": true,
+  "no_model_or_cache_committed": true
+}

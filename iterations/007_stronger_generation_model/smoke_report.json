@@ -1,0 +1,497 @@
+{
+  "phase": "smoke",
+  "passed": true,
+  "error": null,
+  "query_ids": [
+    "mxq-001",
+    "mxq-002",
+    "mxq-022"
+  ],
+  "repeats": 3,
+  "result_count": 18,
+  "stable_groups": {
+    "oracle_packet:mxq-001": true,
+    "dense_packet:mxq-001": true,
+    "oracle_packet:mxq-002": true,
+    "dense_packet:mxq-002": true,
+    "oracle_packet:mxq-022": true,
+    "dense_packet:mxq-022": true
+  },
+  "no_think_tags_or_reasoning_content": true,
+  "schema_valid_all": true,
+  "citation_valid_all": true,
+  "server": {
+    "url": "http://127.0.0.1:18082",
+    "pid": 18836,
+    "stderr": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-llama-cpp-round7\\server.stderr.log",
+    "args": [
+      "D:\\AI-Lab\\runtimes\\llama.cpp\\b9968\\llama-server.exe",
+      "-m",
+      "D:\\AI-Lab\\models\\qwen3.5-9b\\unsloth-3885219b6810b007914f3a7950a8d1b469d598a5\\Qwen3.5-9B-Q4_K_M.gguf",
+      "-c",
+      "8192",
+      "-np",
+      "1",
+      "-ngl",
+      "0",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "18082",
+      "--no-webui",
+      "--offline",
+      "--temp",
+      "0",
+      "--top-k",
+      "1",
+      "--seed",
+      "42",
+      "-n",
+      "256",
+      "--reasoning",
+      "off",
+      "--chat-template-kwargs",
+      "{\"enable_thinking\": false}"
+    ]
+  },
+  "server_stderr_tail": "99, t =   7.79 s / 26.19 tokens per second\n8.01.507.259 I slot print_timing: id  0 | task 1295 | n_decoded =    100, tg =   6.93 t/s, tg_3s =   6.93 t/s\n8.02.818.480 I slot print_timing: id  0 | task 1295 | prompt eval time =    8011.67 ms /   208 tokens (   38.52 ms per token,    25.96 tokens per second)\n8.02.818.492 I slot print_timing: id  0 | task 1295 |        eval time =   15745.60 ms /   109 tokens (  144.46 ms per token,     6.92 tokens per second)\n8.02.818.493 I slot print_timing: id  0 | task 1295 |       total time =   23757.27 ms /   317 tokens\n8.02.818.494 I slot print_timing: id  0 | task 1295 |    graphs reused =       1334\n8.02.818.548 I slot      release: id  0 | task 1295 | stop processing: n_tokens = 529, truncated = 0\n8.02.871.934 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.230 (> 0.100 thold), f_keep = 0.437\n8.02.962.439 I slot launch_slot_: id  0 | task 1406 | processing task, is_child = 0\n8.13.480.702 I slot print_timing: id  0 | task 1406 | prompt processing, n_tokens =    276, progress = 0.49, t =  10.52 s / 26.24 tokens per second\n8.32.957.816 I slot print_timing: id  0 | task 1406 | prompt processing, n_tokens =    788, progress = 1.00, t =  30.00 s / 26.27 tokens per second\n8.47.785.950 I slot print_timing: id  0 | task 1406 | n_decoded =    100, tg =   6.86 t/s, tg_3s =   6.86 t/s\n8.50.905.748 I slot print_timing: id  0 | task 1406 | n_decoded =    121, tg =   6.83 t/s, tg_3s =   6.72 t/s\n8.52.982.119 I slot print_timing: id  0 | task 1406 | prompt eval time =   30229.46 ms /   792 tokens (   38.17 ms per token,    26.20 tokens per second)\n8.52.988.262 I slot print_timing: id  0 | task 1406 |        eval time =   19790.18 ms /   135 tokens (  146.59 ms per token,     6.82 tokens per second)\n8.52.988.275 I slot print_timing: id  0 | task 1406 |       total time =   50019.64 ms /   927 tokens\n8.52.988.277 I slot print_timing: id  0 | task 1406 |    graphs reused =       1466\n8.52.988.389 I slot      release: id  0 | task 1406 | stop processing: n_tokens = 1139, truncated = 0\n8.53.037.771 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.793 (> 0.100 thold), f_keep = 0.192\n8.53.099.406 I slot launch_slot_: id  0 | task 1544 | processing task, is_child = 0\n9.00.914.078 I slot print_timing: id  0 | task 1544 | prompt eval time =    2542.35 ms /    63 tokens (   40.35 ms per token,    24.78 tokens per second)\n9.00.914.090 I slot print_timing: id  0 | task 1544 |        eval time =    5272.29 ms /    37 tokens (  142.49 ms per token,     7.02 tokens per second)\n9.00.914.092 I slot print_timing: id  0 | task 1544 |       total time =    7814.64 ms /   100 tokens\n9.00.914.093 I slot print_timing: id  0 | task 1544 |    graphs reused =       1501\n9.00.914.144 I slot      release: id  0 | task 1544 | stop processing: n_tokens = 312, truncated = 0\n9.00.947.978 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.249 (> 0.100 thold), f_keep = 0.702\n9.00.948.256 I slot launch_slot_: id  0 | task 1583 | processing task, is_child = 0\n9.06.688.699 I slot print_timing: id  0 | task 1583 | prompt processing, n_tokens =    150, progress = 0.41, t =   5.74 s / 26.13 tokens per second\n9.26.157.969 I slot print_timing: id  0 | task 1583 | prompt processing, n_tokens =    662, progress = 1.00, t =  25.21 s / 26.26 tokens per second\n9.31.392.684 I slot print_timing: id  0 | task 1583 | prompt eval time =   25435.50 ms /   666 tokens (   38.19 ms per token,    26.18 tokens per second)\n9.31.392.694 I slot print_timing: id  0 | task 1583 |        eval time =    5008.90 ms /    35 tokens (  143.11 ms per token,     6.99 tokens per second)\n9.31.392.696 I slot print_timing: id  0 | task 1583 |       total time =   30444.40 ms /   701 tokens\n9.31.392.697 I slot print_timing: id  0 | task 1583 |    graphs reused =       1534\n9.31.392.800 I slot      release: id  0 | task 1583 | stop processing: n_tokens = 913, truncated = 0\n",
+  "resources": {
+    "peak_evaluator_rss_bytes": 434667520,
+    "peak_server_rss_bytes": 8522522624,
+    "peak_total_rss_bytes": 8956997632,
+    "peak_gpu_memory_mib": 842,
+    "pagefile_before_bytes": 2899918847,
+    "pagefile_peak_used_bytes": 2957979647
+  },
+  "results": [
+    {
+      "repeat": 1,
+      "query_id": "mxq-001",
+      "condition": "oracle_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\"status\":\"answered\",\"answer\":\"MX-100 的温度上限是 75℃。\",\"citations\":[\"unit_427bb9da85d5c2c78e94\"],\"used_facts\":[\"设备型号 MX-100，温度上限 75℃\"]}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94"
+        ],
+        "used_facts": [
+          "设备型号 MX-100，温度上限 75℃"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 24896.233100000245,
+      "input_tokens": 407,
+      "output_tokens": 66
+    },
+    {
+      "repeat": 1,
+      "query_id": "mxq-001",
+      "condition": "dense_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"MX-100 的温度上限是 75℃。\",\n\"citations\": [\"unit_427bb9da85d5c2c78e94\", \"unit_ea417ff8aa45e3b8d3ea\", \"unit_4f021d52061a98f6ac53\", \"unit_d2026ce4866fbfe12c00\"],\n\"used_facts\": [\"MX-100 设备的温度上限为 75℃。\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94",
+          "unit_ea417ff8aa45e3b8d3ea",
+          "unit_4f021d52061a98f6ac53",
+          "unit_d2026ce4866fbfe12c00"
+        ],
+        "used_facts": [
+          "MX-100 设备的温度上限为 75℃。"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 55556.95299999934,
+      "input_tokens": 1073,
+      "output_tokens": 143
+    },
+    {
+      "repeat": 1,
+      "query_id": "mxq-002",
+      "condition": "oracle_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n  \"status\": \"answered\",\n  \"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n  \"citations\": [\n    \"unit_94850904cf039fcc1678\"\n  ],\n  \"used_facts\": [\n    \"代码E07对应的现象是温度过高\",\n    \"代码E07对应的处理是停止设备并检查散热\"\n  ]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "代码E07对应的现象是温度过高",
+          "代码E07对应的处理是停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 25585.7431000004,
+      "input_tokens": 421,
+      "output_tokens": 109
+    },
+    {
+      "repeat": 1,
+      "query_id": "mxq-002",
+      "condition": "dense_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n\"citations\": [\"unit_5ea191c13e5954131884\", \"unit_4e6240ee45aff210b43d\", \"unit_94850904cf039fcc1678\"],\n\"used_facts\": [\"故障代码E07对应现象为温度过高\", \"故障代码E07的处理方式为停止设备并检查散热\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_5ea191c13e5954131884",
+          "unit_4e6240ee45aff210b43d",
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "故障代码E07对应现象为温度过高",
+          "故障代码E07的处理方式为停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 50110.06119999729,
+      "input_tokens": 1005,
+      "output_tokens": 135
+    },
+    {
+      "repeat": 1,
+      "query_id": "mxq-022",
+      "condition": "oracle_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 7844.494900000427,
+      "input_tokens": 276,
+      "output_tokens": 37
+    },
+    {
+      "repeat": 1,
+      "query_id": "mxq-022",
+      "condition": "dense_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"资料中未提及 MX-100 是否支持蓝牙连接\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "资料中未提及 MX-100 是否支持蓝牙连接",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 30531.59709999818,
+      "input_tokens": 879,
+      "output_tokens": 35
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-001",
+      "condition": "oracle_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\"status\":\"answered\",\"answer\":\"MX-100 的温度上限是 75℃。\",\"citations\":[\"unit_427bb9da85d5c2c78e94\"],\"used_facts\":[\"设备型号 MX-100，温度上限 75℃\"]}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94"
+        ],
+        "used_facts": [
+          "设备型号 MX-100，温度上限 75℃"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 18175.98359999829,
+      "input_tokens": 407,
+      "output_tokens": 66
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-001",
+      "condition": "dense_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"MX-100 的温度上限是 75℃。\",\n\"citations\": [\"unit_427bb9da85d5c2c78e94\", \"unit_ea417ff8aa45e3b8d3ea\", \"unit_4f021d52061a98f6ac53\", \"unit_d2026ce4866fbfe12c00\"],\n\"used_facts\": [\"MX-100 设备的温度上限为 75℃。\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94",
+          "unit_ea417ff8aa45e3b8d3ea",
+          "unit_4f021d52061a98f6ac53",
+          "unit_d2026ce4866fbfe12c00"
+        ],
+        "used_facts": [
+          "MX-100 设备的温度上限为 75℃。"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 54363.03400000179,
+      "input_tokens": 1073,
+      "output_tokens": 143
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-002",
+      "condition": "oracle_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n  \"status\": \"answered\",\n  \"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n  \"citations\": [\n    \"unit_94850904cf039fcc1678\"\n  ],\n  \"used_facts\": [\n    \"代码E07对应的现象是温度过高\",\n    \"代码E07对应的处理是停止设备并检查散热\"\n  ]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "代码E07对应的现象是温度过高",
+          "代码E07对应的处理是停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 23837.74959999937,
+      "input_tokens": 421,
+      "output_tokens": 109
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-002",
+      "condition": "dense_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n\"citations\": [\"unit_5ea191c13e5954131884\", \"unit_4e6240ee45aff210b43d\", \"unit_94850904cf039fcc1678\"],\n\"used_facts\": [\"故障代码E07对应现象为温度过高\", \"故障代码E07的处理方式为停止设备并检查散热\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_5ea191c13e5954131884",
+          "unit_4e6240ee45aff210b43d",
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "故障代码E07对应现象为温度过高",
+          "故障代码E07的处理方式为停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 50318.21970000237,
+      "input_tokens": 1005,
+      "output_tokens": 135
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-022",
+      "condition": "oracle_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 7901.545400000032,
+      "input_tokens": 276,
+      "output_tokens": 37
+    },
+    {
+      "repeat": 2,
+      "query_id": "mxq-022",
+      "condition": "dense_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"资料中未提及 MX-100 是否支持蓝牙连接\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "资料中未提及 MX-100 是否支持蓝牙连接",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 30362.626099999034,
+      "input_tokens": 879,
+      "output_tokens": 35
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-001",
+      "condition": "oracle_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\"status\":\"answered\",\"answer\":\"MX-100 的温度上限是 75℃。\",\"citations\":[\"unit_427bb9da85d5c2c78e94\"],\"used_facts\":[\"设备型号 MX-100，温度上限 75℃\"]}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94"
+        ],
+        "used_facts": [
+          "设备型号 MX-100，温度上限 75℃"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 17820.835599999555,
+      "input_tokens": 407,
+      "output_tokens": 66
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-001",
+      "condition": "dense_packet",
+      "query": "MX-100的温度上限是多少？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"MX-100 的温度上限是 75℃。\",\n\"citations\": [\"unit_427bb9da85d5c2c78e94\", \"unit_ea417ff8aa45e3b8d3ea\", \"unit_4f021d52061a98f6ac53\", \"unit_d2026ce4866fbfe12c00\"],\n\"used_facts\": [\"MX-100 设备的温度上限为 75℃。\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100 的温度上限是 75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94",
+          "unit_ea417ff8aa45e3b8d3ea",
+          "unit_4f021d52061a98f6ac53",
+          "unit_d2026ce4866fbfe12c00"
+        ],
+        "used_facts": [
+          "MX-100 设备的温度上限为 75℃。"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 54440.43139999849,
+      "input_tokens": 1073,
+      "output_tokens": 143
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-002",
+      "condition": "oracle_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n  \"status\": \"answered\",\n  \"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n  \"citations\": [\n    \"unit_94850904cf039fcc1678\"\n  ],\n  \"used_facts\": [\n    \"代码E07对应的现象是温度过高\",\n    \"代码E07对应的处理是停止设备并检查散热\"\n  ]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "代码E07对应的现象是温度过高",
+          "代码E07对应的处理是停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 23890.997100003005,
+      "input_tokens": 421,
+      "output_tokens": 109
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-002",
+      "condition": "dense_packet",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "raw_model_output": "{\n\"status\": \"answered\",\n\"answer\": \"故障代码E07表示温度过高，处理方法是停止设备并检查散热。\",\n\"citations\": [\"unit_5ea191c13e5954131884\", \"unit_4e6240ee45aff210b43d\", \"unit_94850904cf039fcc1678\"],\n\"used_facts\": [\"故障代码E07对应现象为温度过高\", \"故障代码E07的处理方式为停止设备并检查散热\"]\n}",
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，处理方法是停止设备并检查散热。",
+        "citations": [
+          "unit_5ea191c13e5954131884",
+          "unit_4e6240ee45aff210b43d",
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "故障代码E07对应现象为温度过高",
+          "故障代码E07的处理方式为停止设备并检查散热"
+        ]
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 50169.753799997125,
+      "input_tokens": 1005,
+      "output_tokens": 135
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-022",
+      "condition": "oracle_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "提供的资料中不包含关于MX-100是否支持蓝牙连接的信息。",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 7925.5502999985765,
+      "input_tokens": 276,
+      "output_tokens": 37
+    },
+    {
+      "repeat": 3,
+      "query_id": "mxq-022",
+      "condition": "dense_packet",
+      "query": "MX-100支持蓝牙连接吗？",
+      "raw_model_output": "{\"status\":\"insufficient_evidence\",\"answer\":\"资料中未提及 MX-100 是否支持蓝牙连接\",\"citations\":[],\"used_facts\":[]}",
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "资料中未提及 MX-100 是否支持蓝牙连接",
+        "citations": [],
+        "used_facts": []
+      },
+      "schema_valid": true,
+      "citation_valid": true,
+      "think_tag_detected": false,
+      "reasoning_content": "",
+      "total_generation_ms": 30478.805300001113,
+      "input_tokens": 879,
+      "output_tokens": 35
+    }
+  ]
+}

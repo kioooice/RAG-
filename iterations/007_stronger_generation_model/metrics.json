@@ -1,0 +1,285 @@
+{
+  "study": "007_stronger_generation_model",
+  "dataset": {
+    "version": "006-v2",
+    "path": "D:\\Projects\\study\\retrieval-adaptation-lab\\iterations\\006_context_and_evidence_assembly\\evaluation_dataset_v2.jsonl",
+    "sha256": "f0d0c8851006b9fbff6dde94c7bb51aed807502036a751187849d8cc1453d685",
+    "query_count": 30,
+    "answerable": 20,
+    "unanswerable": 10
+  },
+  "fixed_variables": {
+    "evidence_packet_schema": "evidence-packet-v0.1",
+    "context_size": 8192,
+    "max_tokens": 256,
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 1,
+    "seed": 42,
+    "reasoning": "off",
+    "dense_top_k": 5,
+    "llama_cpp": "b9968",
+    "bge_results_source": "006 fixed Dense Top-5",
+    "no_extract_then_answer": true
+  },
+  "model": {
+    "id": "Qwen/Qwen3.5-9B",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "license": "Apache-2.0",
+    "gguf_repo": "unsloth/Qwen3.5-9B-GGUF",
+    "gguf_revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+    "gguf_file": "Qwen3.5-9B-Q4_K_M.gguf",
+    "gguf_size_bytes": 5680522464,
+    "gguf_sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "text_only": true,
+    "mmproj_downloaded": false
+  },
+  "baseline_006": {
+    "oracle_packet": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.65,
+      "answer_correctness_all": 0.7666666666666667,
+      "required_fact_recall": 0.7391304347826086,
+      "unsupported_claim_rate": 0.06666666666666667,
+      "citation_validity_answered": 0.8125,
+      "citation_validity_selected_answered": 0.8125,
+      "citation_coverage_all_answerable": 0.65,
+      "citation_support_rate": 0.65,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "average": 6518.265733333828,
+        "p50": 6231.35645000184,
+        "p95": 11155.11787500145,
+        "first_token_average": 2351.800636120717
+      },
+      "input_tokens": 380.3666666666667,
+      "output_tokens": 55.7,
+      "failure_types": {
+        "schema_error": 0,
+        "false_refusal": 4,
+        "missed_abstention": 0,
+        "model_omission": 7,
+        "conflict_fact": 0,
+        "citation_error": 7
+      }
+    },
+    "dense_packet": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.8,
+      "answer_correctness_all": 0.8666666666666667,
+      "required_fact_recall": 0.8043478260869565,
+      "unsupported_claim_rate": 0.23333333333333334,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.85,
+      "citation_support_rate": 0.85,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.1,
+      "json_schema_pass_rate": 0.9666666666666667,
+      "latency_ms": {
+        "average": 21767.708016667046,
+        "p50": 19415.931900000942,
+        "p95": 32534.786054999855,
+        "first_token_average": 13407.177434247042
+      },
+      "input_tokens": 991.1,
+      "output_tokens": 92.43333333333334,
+      "failure_types": {
+        "schema_error": 1,
+        "false_refusal": 2,
+        "missed_abstention": 0,
+        "model_omission": 4,
+        "conflict_fact": 0,
+        "citation_error": 3
+      }
+    }
+  },
+  "conditions": {
+    "oracle_packet_9b": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.8,
+      "answer_correctness_all": 0.8666666666666667,
+      "required_fact_recall": 0.8695652173913043,
+      "unsupported_claim_rate": 0.36666666666666664,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.95,
+      "citation_support_rate": 0.95,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.05,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "average": 17807.49703333325,
+        "p50": 20701.996899999358,
+        "p95": 25443.196664999774,
+        "first_token_average": 7021.971128656043
+      },
+      "input_tokens": 376.6,
+      "output_tokens": 69.36666666666666,
+      "failure_types": {
+        "schema_error": 0,
+        "false_refusal": 1,
+        "missed_abstention": 0,
+        "model_omission": 4,
+        "conflict_fact": 0,
+        "citation_error": 1
+      }
+    },
+    "dense_packet_9b": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.85,
+      "answer_correctness_all": 0.9,
+      "required_fact_recall": 0.9347826086956522,
+      "unsupported_claim_rate": 0.26666666666666666,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.85,
+      "citation_support_rate": 0.85,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.1,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "average": 46826.195046666544,
+        "p50": 47675.5825500004,
+        "p95": 62433.64380999973,
+        "first_token_average": 30963.76427954321
+      },
+      "input_tokens": 989.2333333333333,
+      "output_tokens": 104.6,
+      "failure_types": {
+        "schema_error": 0,
+        "false_refusal": 2,
+        "missed_abstention": 0,
+        "model_omission": 2,
+        "conflict_fact": 0,
+        "citation_error": 3
+      }
+    }
+  },
+  "comparison": {
+    "oracle_packet_9b": {
+      "improved": 4,
+      "declined": 1,
+      "unchanged": 25
+    },
+    "dense_packet_9b": {
+      "improved": 2,
+      "declined": 1,
+      "unchanged": 27
+    },
+    "four_b_error_nine_b_correct": 6,
+    "both_error": 5,
+    "new_hallucination": 15,
+    "new_citation_error": 0
+  },
+  "acceptance": {
+    "oracle_packet": {
+      "answerable_correctness_ge_0_90": false,
+      "required_fact_recall_ge_0_95": false,
+      "citation_validity_eq_1": true,
+      "citation_support_ge_0_95": true,
+      "unsupported_claim_le_0_05": false,
+      "false_refusal_le_0_10": true,
+      "unanswerable_abstention_ge_0_90": true
+    },
+    "dense_packet": {
+      "answerable_correctness_ge_0_85": true,
+      "oracle_gap_le_0_10": true,
+      "citation_validity_eq_1": true,
+      "citation_support_ge_0_90": false,
+      "unanswerable_abstention_ge_0_90": true
+    },
+    "quality_pass": false,
+    "stable_completed": true
+  },
+  "formal_resources": {
+    "peak_evaluator_rss_bytes": 435380224,
+    "peak_server_rss_bytes": 11032539136,
+    "peak_total_rss_bytes": 11051966464,
+    "peak_gpu_memory_mib": 916,
+    "pagefile_before_bytes": 2944503808,
+    "pagefile_peak_used_bytes": 12871540736,
+    "pagefile_after_bytes": 5166215168,
+    "pagefile_delta_after_bytes": 2221711360,
+    "pagefile_initial_allocated_base_mb": 10752,
+    "pagefile_peak_allocated_base_mb": 14897,
+    "pagefile_auto_expanded": true,
+    "gpu_backend_used": "CPU (-ngl 0)"
+  },
+  "smoke": {
+    "phase": "smoke",
+    "passed": true,
+    "error": null,
+    "query_ids": [
+      "mxq-001",
+      "mxq-002",
+      "mxq-022"
+    ],
+    "repeats": 3,
+    "result_count": 18,
+    "stable_groups": {
+      "oracle_packet:mxq-001": true,
+      "dense_packet:mxq-001": true,
+      "oracle_packet:mxq-002": true,
+      "dense_packet:mxq-002": true,
+      "oracle_packet:mxq-022": true,
+      "dense_packet:mxq-022": true
+    },
+    "no_think_tags_or_reasoning_content": true,
+    "schema_valid_all": true,
+    "citation_valid_all": true,
+    "server": {
+      "url": "http://127.0.0.1:18082",
+      "pid": 18836,
+      "stderr": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-llama-cpp-round7\\server.stderr.log",
+      "args": [
+        "D:\\AI-Lab\\runtimes\\llama.cpp\\b9968\\llama-server.exe",
+        "-m",
+        "D:\\AI-Lab\\models\\qwen3.5-9b\\unsloth-3885219b6810b007914f3a7950a8d1b469d598a5\\Qwen3.5-9B-Q4_K_M.gguf",
+        "-c",
+        "8192",
+        "-np",
+        "1",
+        "-ngl",
+        "0",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18082",
+        "--no-webui",
+        "--offline",
+        "--temp",
+        "0",
+        "--top-k",
+        "1",
+        "--seed",
+        "42",
+        "-n",
+        "256",
+        "--reasoning",
+        "off",
+        "--chat-template-kwargs",
+        "{\"enable_thinking\": false}"
+      ]
+    },
+    "server_stderr_tail": "99, t =   7.79 s / 26.19 tokens per second\n8.01.507.259 I slot print_timing: id  0 | task 1295 | n_decoded =    100, tg =   6.93 t/s, tg_3s =   6.93 t/s\n8.02.818.480 I slot print_timing: id  0 | task 1295 | prompt eval time =    8011.67 ms /   208 tokens (   38.52 ms per token,    25.96 tokens per second)\n8.02.818.492 I slot print_timing: id  0 | task 1295 |        eval time =   15745.60 ms /   109 tokens (  144.46 ms per token,     6.92 tokens per second)\n8.02.818.493 I slot print_timing: id  0 | task 1295 |       total time =   23757.27 ms /   317 tokens\n8.02.818.494 I slot print_timing: id  0 | task 1295 |    graphs reused =       1334\n8.02.818.548 I slot      release: id  0 | task 1295 | stop processing: n_tokens = 529, truncated = 0\n8.02.871.934 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.230 (> 0.100 thold), f_keep = 0.437\n8.02.962.439 I slot launch_slot_: id  0 | task 1406 | processing task, is_child = 0\n8.13.480.702 I slot print_timing: id  0 | task 1406 | prompt processing, n_tokens =    276, progress = 0.49, t =  10.52 s / 26.24 tokens per second\n8.32.957.816 I slot print_timing: id  0 | task 1406 | prompt processing, n_tokens =    788, progress = 1.00, t =  30.00 s / 26.27 tokens per second\n8.47.785.950 I slot print_timing: id  0 | task 1406 | n_decoded =    100, tg =   6.86 t/s, tg_3s =   6.86 t/s\n8.50.905.748 I slot print_timing: id  0 | task 1406 | n_decoded =    121, tg =   6.83 t/s, tg_3s =   6.72 t/s\n8.52.982.119 I slot print_timing: id  0 | task 1406 | prompt eval time =   30229.46 ms /   792 tokens (   38.17 ms per token,    26.20 tokens per second)\n8.52.988.262 I slot print_timing: id  0 | task 1406 |        eval time =   19790.18 ms /   135 tokens (  146.59 ms per token,     6.82 tokens per second)\n8.52.988.275 I slot print_timing: id  0 | task 1406 |       total time =   50019.64 ms /   927 tokens\n8.52.988.277 I slot print_timing: id  0 | task 1406 |    graphs reused =       1466\n8.52.988.389 I slot      release: id  0 | task 1406 | stop processing: n_tokens = 1139, truncated = 0\n8.53.037.771 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.793 (> 0.100 thold), f_keep = 0.192\n8.53.099.406 I slot launch_slot_: id  0 | task 1544 | processing task, is_child = 0\n9.00.914.078 I slot print_timing: id  0 | task 1544 | prompt eval time =    2542.35 ms /    63 tokens (   40.35 ms per token,    24.78 tokens per second)\n9.00.914.090 I slot print_timing: id  0 | task 1544 |        eval time =    5272.29 ms /    37 tokens (  142.49 ms per token,     7.02 tokens per second)\n9.00.914.092 I slot print_timing: id  0 | task 1544 |       total time =    7814.64 ms /   100 tokens\n9.00.914.093 I slot print_timing: id  0 | task 1544 |    graphs reused =       1501\n9.00.914.144 I slot      release: id  0 | task 1544 | stop processing: n_tokens = 312, truncated = 0\n9.00.947.978 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.249 (> 0.100 thold), f_keep = 0.702\n9.00.948.256 I slot launch_slot_: id  0 | task 1583 | processing task, is_child = 0\n9.06.688.699 I slot print_timing: id  0 | task 1583 | prompt processing, n_tokens =    150, progress = 0.41, t =   5.74 s / 26.13 tokens per second\n9.26.157.969 I slot print_timing: id  0 | task 1583 | prompt processing, n_tokens =    662, progress = 1.00, t =  25.21 s / 26.26 tokens per second\n9.31.392.684 I slot print_timing: id  0 | task 1583 | prompt eval time =   25435.50 ms /   666 tokens (   38.19 ms per token,    26.18 tokens per second)\n9.31.392.694 I slot print_timing: id  0 | task 1583 |        eval time =    5008.90 ms /    35 tokens (  143.11 ms per token,     6.99 tokens per second)\n9.31.392.696 I slot print_timing: id  0 | task 1583 |       total time =   30444.40 ms /   701 tokens\n9.31.392.697 I slot print_timing: id  0 | task 1583 |    graphs reused =       1534\n9.31.392.800 I slot      release: id  0 | task 1583 | stop processing: n_tokens = 913, truncated = 0\n",
+    "resources": {
+      "peak_evaluator_rss_bytes": 434667520,
+      "peak_server_rss_bytes": 8522522624,
+      "peak_total_rss_bytes": 8956997632,
+      "peak_gpu_memory_mib": 842,
+      "pagefile_before_bytes": 2899918847,
+      "pagefile_peak_used_bytes": 2957979647
+    }
+  }
+}
