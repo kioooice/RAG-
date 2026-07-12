@@ -1,0 +1,195 @@
+{
+  "study": "005_grounded_generation",
+  "dataset": {
+    "path": "D:\\Projects\\study\\retrieval-adaptation-lab\\iterations\\005_grounded_generation\\evaluation_dataset.jsonl",
+    "query_count": 30,
+    "answerable": 20,
+    "unanswerable": 10,
+    "source": "002/003 fictitious MX-100 KnowledgeUnits and 004 Chinese evaluation basis"
+  },
+  "model": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "gguf_repo": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+    "gguf_revision": "a06e946bb6b655725eafa393f4a9745d460374c9",
+    "gguf_file": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "gguf_sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "runtime": "llama.cpp b9968"
+  },
+  "fixed_generation": {
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 1,
+    "seed": 42,
+    "max_tokens": 256,
+    "context_size": 8192,
+    "reasoning": "off",
+    "prompt_sha256": "1796ebce2b83cca1991ceb89e599d58de7637bfad2945ac69ca6e3e3c4e9d111"
+  },
+  "retrieval": {
+    "method": "BAAI/bge-m3 Dense",
+    "top_k": 5,
+    "model_path": "D:\\AI-Lab\\models\\bge-m3\\5617a9f61b028005a4858fdac845db406aefb181",
+    "build_seconds": 3.873620899999878,
+    "document_count": 29
+  },
+  "conditions": {
+    "closed_book": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answer_correctness": 0.3333333333333333,
+      "answerable_correctness": 0.0,
+      "required_fact_recall": 0.2391304347826087,
+      "unsupported_claim_rate": 0.5333333333333333,
+      "citation_validity": 1.0,
+      "citation_support_rate": 0.0,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 1.0,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "total_generation": {
+          "average": 3294.327529999888,
+          "p50": 3156.19979999974,
+          "p95": 3782.8725999997905
+        },
+        "first_token": {
+          "average": 962.5026277918688,
+          "p50": 838.4146454545455,
+          "p95": 963.6283218023254
+        }
+      },
+      "input_tokens": {
+        "average": 266.1333333333333,
+        "p50": 265.5,
+        "p95": 269.55
+      },
+      "output_tokens": {
+        "average": 35.666666666666664,
+        "p50": 35.0,
+        "p95": 42.55
+      },
+      "tokens_per_second": {
+        "average": 15.135192620012692,
+        "p50": 15.284672070617955,
+        "p95": 15.379920565072325
+      },
+      "failure_counts": {
+        "retrieval_failure": 0,
+        "generation_failure": 20,
+        "citation_failure": 0,
+        "any_failure": 20
+      }
+    },
+    "oracle_context": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answer_correctness": 0.7333333333333333,
+      "answerable_correctness": 0.6,
+      "required_fact_recall": 0.8260869565217391,
+      "unsupported_claim_rate": 0.26666666666666666,
+      "citation_validity": 0.9666666666666667,
+      "citation_support_rate": 0.75,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "total_generation": {
+          "average": 4535.805753333201,
+          "p50": 4883.358049999515,
+          "p95": 6945.846124999298
+        },
+        "first_token": {
+          "average": 1137.1635891657836,
+          "p50": 1421.4042540997323,
+          "p95": 2038.130118619403
+        }
+      },
+      "input_tokens": {
+        "average": 299.8333333333333,
+        "p50": 303.5,
+        "p95": 340.0
+      },
+      "output_tokens": {
+        "average": 51.333333333333336,
+        "p50": 48.5,
+        "p95": 83.55
+      },
+      "tokens_per_second": {
+        "average": 14.938957339675772,
+        "p50": 15.018677223811602,
+        "p95": 15.383649995928536
+      },
+      "failure_counts": {
+        "retrieval_failure": 0,
+        "generation_failure": 8,
+        "citation_failure": 1,
+        "any_failure": 9
+      }
+    },
+    "dense_rag": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answer_correctness": 0.8,
+      "answerable_correctness": 0.7,
+      "required_fact_recall": 0.8695652173913043,
+      "unsupported_claim_rate": 0.4,
+      "citation_validity": 1.0,
+      "citation_support_rate": 0.8,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "total_generation": {
+          "average": 9579.720323333398,
+          "p50": 8541.094399999565,
+          "p95": 16160.633439999763
+        },
+        "first_token": {
+          "average": 4281.759041985956,
+          "p50": 4102.365134502925,
+          "p95": 5470.0513574858
+        }
+      },
+      "input_tokens": {
+        "average": 481.46666666666664,
+        "p50": 477.0,
+        "p95": 537.05
+      },
+      "output_tokens": {
+        "average": 75.56666666666666,
+        "p50": 67.0,
+        "p95": 141.75
+      },
+      "tokens_per_second": {
+        "average": 14.366785672598564,
+        "p50": 14.369283440398753,
+        "p95": 15.099172093291918
+      },
+      "failure_counts": {
+        "retrieval_failure": 0,
+        "generation_failure": 6,
+        "citation_failure": 0,
+        "any_failure": 6
+      }
+    }
+  },
+  "resource_observation": {
+    "model_load_seconds": 3.0176545000012993,
+    "peak_evaluator_rss_bytes": 2021617664,
+    "peak_server_rss_bytes": 7988641792,
+    "peak_total_rss_bytes": 9990778880,
+    "peak_gpu_memory_mib_observed": 667,
+    "gpu_backend_used": "cpu"
+  },
+  "acceptance": {
+    "oracle_answerable_correctness_ge_0_90": false,
+    "oracle_citation_validity_eq_1": false,
+    "oracle_citation_support_ge_0_95": false,
+    "oracle_unsupported_claim_rate_le_0_05": false,
+    "oracle_unanswerable_abstention_ge_0_90": true,
+    "dense_close_to_oracle": true
+  }
+}

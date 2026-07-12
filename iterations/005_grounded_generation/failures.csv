@@ -1,0 +1,36 @@
+﻿query_id,condition,question_type,query,failure_source,retrieval_failure,schema_valid,citation_valid,citation_support_rate,required_fact_recall,answer,citations,context_unit_ids,observation
+mxq-001,closed_book,answerable,MX-100的温度上限是多少？,generation_failure,False,True,True,0.0,0.6666666666666666,资料中未提及MX-100的温度上限。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-002,closed_book,answerable,故障代码E07表示什么，应该怎么处理？,generation_failure,False,True,True,0.0,0.25,资料中未提供关于故障代码E07的任何信息，无法确定其含义及处理方法。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-003,closed_book,answerable,E02故障应该如何处理？,generation_failure,False,True,True,0.0,0.3333333333333333,资料中未提及E02故障的相关信息，无法提供处理方法。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-004,closed_book,answerable,E03故障应该如何处理？,generation_failure,False,True,True,0.0,0.3333333333333333,资料中未提及E03故障的相关信息，无法提供处理方法。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-004,dense_rag,answerable,E03故障应该如何处理？,generation_failure,False,True,True,0.0,0.3333333333333333,资料中未提及E03故障的处理方法。,,unit_94850904cf039fcc1678|unit_5ea191c13e5954131884|unit_931b71f8106f5858e816|unit_4e6240ee45aff210b43d|unit_8b8c7f0d85cd4c16345f,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-005,closed_book,answerable,MX-100当前文档版本是什么？,generation_failure,False,True,True,0.0,0.0,无法确定MX-100当前文档版本，资料中无相关信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-005,oracle_context,answerable,MX-100当前文档版本是什么？,citation_failure,False,True,False,0.0,1.0,MX-100当前文档版本是v1.2。,unit_03db816ac89ed14348516,unit_03db816ac89ed1434516,引用 ID 不在当前 Context 中。 引用未覆盖全部人工要求事实。
+mxq-006,closed_book,answerable,设备资料记录的日期是什么？,generation_failure,False,True,True,0.0,0.0,资料中未提及设备资料记录的日期,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-007,closed_book,answerable,维护步骤所在章节的名称是什么？,generation_failure,False,True,True,0.0,0.0,资料中未提及任何关于维护步骤所在章节的名称。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-007,oracle_context,answerable,维护步骤所在章节的名称是什么？,generation_failure,False,True,True,0.0,0.0,资料中未提及维护步骤所在章节的名称。,,unit_0163e2051a2ebd5d095e,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-007,dense_rag,answerable,维护步骤所在章节的名称是什么？,generation_failure,False,True,True,0.0,0.0,资料中未明确提及维护步骤所在章节的名称。,,unit_0163e2051a2ebd5d095e|unit_2bd1304003c7f0dfea98|unit_766c48cf1448479c2315|unit_12f442be965b3ab2a53c|unit_b85a502fbfddf27ee43b,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-008,closed_book,answerable,安全参数章节叫什么？,generation_failure,False,True,True,0.0,1.0,资料中未提及安全参数章节的名称。,,,引用未覆盖全部人工要求事实。
+mxq-008,oracle_context,answerable,安全参数章节叫什么？,generation_failure,False,True,True,0.0,1.0,资料中未提及安全参数章节的名称。,,unit_4102e7b75c61bddf397f,引用未覆盖全部人工要求事实。
+mxq-008,dense_rag,answerable,安全参数章节叫什么？,generation_failure,False,True,True,0.0,1.0,资料中未提及安全参数章节的名称。,,unit_4102e7b75c61bddf397f|unit_0163e2051a2ebd5d095e|unit_088a259df618945202b2|unit_12dd3556798a53065a50|unit_4f021d52061a98f6ac53,引用未覆盖全部人工要求事实。
+mxq-009,closed_book,answerable,机器热到安全极限时还能继续运行吗？,generation_failure,False,True,True,0.0,0.0,资料中未提及机器在热到安全极限时的运行情况。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-010,closed_book,answerable,设备发出高温告警后应该排查哪个部位？,generation_failure,False,True,True,0.0,0.0,资料中未提供设备高温告警时应排查的部位信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-011,closed_book,answerable,开始保养设备前第一项动作是什么？,generation_failure,False,True,True,0.0,0.0,资料中未提及设备保养的任何信息，无法确定开始保养前的第一项动作。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-012,closed_book,answerable,把滤网处理干净以后下一步做什么？,generation_failure,False,True,True,0.0,0.0,资料中没有提及滤网处理干净后的下一步操作。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-012,oracle_context,answerable,把滤网处理干净以后下一步做什么？,generation_failure,False,True,True,1.0,0.5,重启并记录结果。,unit_0861be8afba46dca2c51,unit_0861be8afba46dca2c51,回答未包含全部要求事实。
+mxq-013,closed_book,answerable,完成维护后还需要留下什么信息？,generation_failure,False,True,True,0.0,0.0,资料中未提及完成维护后需要留下什么信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-014,closed_book,answerable,温控允许的最高数值是多少？,generation_failure,False,True,True,0.0,0.0,资料中未提及温控允许的最高数值。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-015,closed_book,answerable,感知元件掉线后怎样恢复？,generation_failure,False,True,True,0.0,0.0,资料中没有关于感知元件掉线后如何恢复的信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-015,oracle_context,answerable,感知元件掉线后怎样恢复？,generation_failure,False,True,True,1.0,0.6666666666666666,检查连接,unit_94850904cf039fcc1678,unit_94850904cf039fcc1678,回答未包含全部要求事实。
+mxq-015,dense_rag,answerable,感知元件掉线后怎样恢复？,generation_failure,False,True,True,1.0,0.3333333333333333,感知元件掉线后，应检查连接以恢复。,unit_931b71f8106f5858e816|unit_94850904cf039fcc1678,unit_2bc981741b7b9f68f243|unit_931b71f8106f5858e816|unit_4912a65c603f231bd224|unit_d2ea24bd55aa60e58786|unit_94850904cf039fcc1678,回答未包含全部要求事实。
+mxq-016,closed_book,answerable,供电异常时怎样让设备恢复？,generation_failure,False,True,True,0.0,0.0,资料中没有提供关于供电异常时如何让设备恢复的信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-016,oracle_context,answerable,供电异常时怎样让设备恢复？,generation_failure,False,True,True,1.0,0.6666666666666666,当出现电源异常时，应执行断电复位操作来让设备恢复。,unit_94850904cf039fcc1678,unit_94850904cf039fcc1678,回答未包含全部要求事实。
+mxq-016,dense_rag,answerable,供电异常时怎样让设备恢复？,generation_failure,False,True,True,1.0,0.6666666666666666,当出现供电异常时，应执行断电复位操作来让设备恢复。,unit_94850904cf039fcc1678,unit_2bc981741b7b9f68f243|unit_94850904cf039fcc1678|unit_4912a65c603f231bd224|unit_0163e2051a2ebd5d095e|unit_0861be8afba46dca2c51,回答未包含全部要求事实。
+mxq-017,closed_book,answerable,维护时应该先重启还是先切断电源？,generation_failure,False,True,True,0.0,0.3333333333333333,资料中未提供相关信息，无法判断维护时应先重启还是先切断电源。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-018,closed_book,answerable,E02和E07中哪个代表传感器离线？,generation_failure,False,True,True,0.0,0.75,资料中未提及E02或E07的含义，无法判断哪个代表传感器离线。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-018,oracle_context,answerable,E02和E07中哪个代表传感器离线？,generation_failure,False,True,True,1.0,0.5,E02代表传感器离线,unit_94850904cf039fcc1678,unit_94850904cf039fcc1678,回答未包含全部要求事实。
+mxq-019,closed_book,answerable,E03故障是否应该检查散热？,generation_failure,False,True,True,0.0,0.3333333333333333,资料中未提及E03故障或其与散热的关系，无法判断是否需要检查散热。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-019,oracle_context,answerable,E03故障是否应该检查散热？,generation_failure,False,True,True,0.0,0.6666666666666666,资料中未明确说明E03故障是否需要检查散热，E03对应的是电源异常，而散热问题与E07（温度过高）相关，无直接关联。,,unit_94850904cf039fcc1678,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-019,dense_rag,answerable,E03故障是否应该检查散热？,generation_failure,False,True,True,0.0,1.0,资料中未提及E03故障需要检查散热，E03对应的现象是电源异常，应进行断电复位，而非检查散热。,,unit_4e6240ee45aff210b43d|unit_8b8c7f0d85cd4c16345f|unit_d2ea24bd55aa60e58786|unit_94850904cf039fcc1678|unit_931b71f8106f5858e816,引用未覆盖全部人工要求事实。
+mxq-020,closed_book,answerable,查找维护步骤应该进入哪个章节？,generation_failure,False,True,True,0.0,0.0,资料中未提供关于维护步骤应进入哪个章节的信息。,,,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。
+mxq-020,oracle_context,answerable,查找维护步骤应该进入哪个章节？,generation_failure,False,True,True,0.0,0.0,资料中未提及维护步骤应进入哪个章节。,,unit_0163e2051a2ebd5d095e,引用未覆盖全部人工要求事实。 回答未包含全部要求事实。

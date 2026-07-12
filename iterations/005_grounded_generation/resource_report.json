@@ -1,0 +1,36 @@
+{
+  "python": "3.14.2",
+  "python_executable": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-bge-m3\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "project_root": "D:\\Projects\\study\\retrieval-adaptation-lab",
+  "runtime": {
+    "name": "llama.cpp",
+    "release": "b9968",
+    "path": "D:\\AI-Lab\\runtimes\\llama.cpp\\b9968",
+    "bytes": 46266720,
+    "backend": "CPU",
+    "server": {
+      "url": "http://127.0.0.1:18080",
+      "pid": 19980,
+      "stderr": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-llama-cpp\\server.stderr.log"
+    },
+    "offline_flag": true
+  },
+  "model": {
+    "path": "D:\\AI-Lab\\models\\qwen3-4b-instruct-2507\\unsloth-a06e946bb6b655725eafa393f4a9745d460374c9\\Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "bytes": 2497281120,
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "base_revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "bge_model_path": "D:\\AI-Lab\\models\\bge-m3\\5617a9f61b028005a4858fdac845db406aefb181",
+  "peak_evaluator_rss_bytes": 2021617664,
+  "peak_server_rss_bytes": 7988641792,
+  "peak_total_rss_bytes": 9990778880,
+  "peak_gpu_memory_mib_observed": 667,
+  "gpu_backend_used": "cpu",
+  "gpu_device": "NVIDIA GeForce RTX 4050 Laptop GPU, 6141 MiB, 595.79",
+  "d_drive_free_bytes_after": 272677449728,
+  "pip_check": "No broken requirements found.",
+  "offline_repeatable": true,
+  "no_model_or_cache_committed": true
+}
