@@ -127,6 +127,57 @@ def packet_user(query: str, packet_text: str) -> str:
     )
 
 
+def canonical_hash(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+
+
+def file_hash(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def fixed_input_fingerprints(
+    dataset: list[dict[str, Any]],
+    packets: dict[tuple[str, str], dict[str, Any]],
+    system_prompt: str,
+) -> dict[str, str]:
+    packet_set = []
+    for row in dataset:
+        for condition, _ in FORMAL_CONDITIONS:
+            packet = packets[(row["query_id"], condition)]
+            packet_set.append(
+                {
+                    "query_id": row["query_id"],
+                    "condition": condition,
+                    "packet_text": packet.get("packet_text", ""),
+                    "packet_units": packet.get("packet_units", []),
+                    "packet_allowed_ids": packet.get("packet_allowed_ids", []),
+                }
+            )
+    parameters = {
+        "model": MODEL,
+        "max_completion_tokens": MAX_COMPLETION_TOKENS,
+        "temperature": TEMPERATURE,
+        "top_p": TOP_P,
+        "stream": False,
+        "thinking": {"type": "disabled"},
+        "response_format": {"type": "json_object"},
+        "conditions": FORMAL_CONDITIONS,
+    }
+    return {
+        "dataset_sha256": file_hash(DATASET_PATH),
+        "prompt_sha256": file_hash(PROMPT_PATH),
+        "system_prompt_sha256": hashlib.sha256(system_prompt.encode("utf-8")).hexdigest(),
+        "packet_set_sha256": canonical_hash(packet_set),
+        "parameters_sha256": canonical_hash(parameters),
+    }
+
+
 def load_fixed_inputs() -> tuple[list[dict[str, Any]], dict[tuple[str, str], dict[str, Any]]]:
     if not DATASET_PATH.exists() or not CONTEXT_RESULTS_PATH.exists() or not PROMPT_PATH.exists():
         raise FileNotFoundError("fixed_round_6_inputs_missing")
@@ -379,7 +430,14 @@ def request_cost(usage: dict[str, Any], config: CredentialConfig) -> float | Non
     )
 
 
-def http_request(config: CredentialConfig, payload: dict[str, Any], phase: str, query_id: str, condition: str) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+def http_request(
+    config: CredentialConfig,
+    payload: dict[str, Any],
+    phase: str,
+    query_id: str,
+    condition: str,
+    fingerprints: dict[str, str] | None = None,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     if not config.has_key:
         raise RuntimeError("missing_credentials")
     if config.status != "ready":
@@ -390,6 +448,7 @@ def http_request(config: CredentialConfig, payload: dict[str, Any], phase: str, 
         if existing_attempts() >= config.max_requests:
             raise RuntimeError("request_limit_reached")
         attempt += 1
+        request_id = f"{phase}:{query_id}:{condition}:{attempt}"
         started = time.perf_counter()
         request = urllib.request.Request(
             config.endpoint,
@@ -405,27 +464,28 @@ def http_request(config: CredentialConfig, payload: dict[str, Any], phase: str, 
             usage = extract_usage(parsed if isinstance(parsed, dict) else {})
             cost = request_cost(usage, config)
             write_manifest({
-                "phase": phase, "query_id": query_id, "condition": condition,
+                "request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition,
                 "attempt": attempt, "status": "success", "http_status": 200,
                 "model": MODEL, "response_model": parsed.get("model") if isinstance(parsed, dict) else None,
                 "latency_ms": round(latency_ms, 3), "usage": usage, "cost_usd": cost,
+                "input_fingerprints": fingerprints or {},
             })
             return parsed if isinstance(parsed, dict) else None, {"latency_ms": latency_ms, "usage": usage, "cost_usd": cost, "retries": attempt - 1}
         except urllib.error.HTTPError as exc:
             category = "http_429" if exc.code == 429 else ("http_5xx" if exc.code >= 500 else "http_error")
-            write_manifest({"phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "http_status": exc.code, "error_category": category, "model": MODEL})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "http_status": exc.code, "error_category": category, "model": MODEL, "input_fingerprints": fingerprints or {}})
             if category in {"http_429", "http_5xx"} and attempt <= RETRY_LIMIT:
                 time.sleep(2 ** (attempt - 1))
                 continue
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": category}
         except (TimeoutError, urllib.error.URLError):
-            write_manifest({"phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "timeout_or_network", "model": MODEL})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "timeout_or_network", "model": MODEL, "input_fingerprints": fingerprints or {}})
             if attempt <= RETRY_LIMIT:
                 time.sleep(2 ** (attempt - 1))
                 continue
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "timeout_or_network"}
         except (json.JSONDecodeError, OSError):
-            write_manifest({"phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "invalid_response", "model": MODEL})
+            write_manifest({"request_id": request_id, "phase": phase, "query_id": query_id, "condition": condition, "attempt": attempt, "status": "error", "error_category": "invalid_response", "model": MODEL, "input_fingerprints": fingerprints or {}})
             return None, {"latency_ms": (time.perf_counter() - started) * 1000, "usage": {}, "cost_usd": None, "retries": attempt - 1, "error": "invalid_response"}
 
 
@@ -439,6 +499,7 @@ def run_smoke(config: CredentialConfig, dataset: list[dict[str, Any]], packets: 
         print(json.dumps({"status": "blocked", "reason": "request_budget_exhausted"}, ensure_ascii=False))
         return False
     rows: list[dict[str, Any]] = []
+    fingerprints = fixed_input_fingerprints(dataset, packets, system_prompt)
     safe_checks: list[bool] = []
     for query_id in SMOKE_QUERY_IDS:
         query_row = next(row for row in dataset if row["query_id"] == query_id)
@@ -446,7 +507,7 @@ def run_smoke(config: CredentialConfig, dataset: list[dict[str, Any]], packets: 
             packet = packets[(query_id, condition)]
             payload = make_payload(system_prompt, query_row["query"], packet)
             safe_checks.append(True)
-            response, info = http_request(config, payload, "smoke", query_id, condition)
+            response, info = http_request(config, payload, "smoke", query_id, condition, fingerprints)
             content, parsed, message = parse_content(response or {})
             response_model = (response or {}).get("model") if response else None
             usage = info.get("usage", {})
@@ -458,6 +519,7 @@ def run_smoke(config: CredentialConfig, dataset: list[dict[str, Any]], packets: 
             output["tools_absent"] = not bool(message.get("tool_calls")) and not bool((response or {}).get("usage", {}).get("web_search_usage"))
             output["content_received"] = bool(content)
             output["retry_count"] = info.get("retries", 0)
+            output["input_fingerprints"] = fingerprints
             rows.append(output)
     passed = bool(rows) and all(
         row["structured_output"] and row["response_model_correct"] and row["thinking_disabled_observed"] and row["tools_absent"] and not row["failure_types"]
@@ -578,18 +640,76 @@ def write_inspection(rows: list[dict[str, Any]]) -> None:
     (ROUND_DIR / "inspection.html").write_text(content, encoding="utf-8")
 
 
+def validate_resume_state(
+    rows: list[dict[str, Any]],
+    manifest: list[dict[str, Any]],
+    dataset: list[dict[str, Any]],
+    fingerprints: dict[str, str],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    expected = {(row["query_id"], condition) for row in dataset for condition, _ in FORMAL_CONDITIONS}
+    issues: list[str] = []
+    formal_manifest = [row for row in manifest if row.get("phase") == "formal"]
+    request_ids = [row.get("request_id") for row in manifest]
+    if any(not request_id for request_id in request_ids) or len(request_ids) != len(set(request_ids)):
+        issues.append("manifest_request_id_missing_or_duplicate")
+    if any(row.get("input_fingerprints") != fingerprints for row in manifest if row.get("input_fingerprints")):
+        issues.append("manifest_input_fingerprint_mismatch")
+    if any(not row.get("input_fingerprints") for row in formal_manifest):
+        issues.append("manifest_historical_fingerprint_missing")
+
+    completed = [row for row in rows if row.get("phase") == "formal"]
+    completed_keys = [(row.get("query_id"), row.get("condition")) for row in completed]
+    if len(completed_keys) != len(set(completed_keys)):
+        issues.append("formal_result_duplicate_pair")
+    if not all(key in expected for key in completed_keys):
+        issues.append("formal_result_unknown_pair")
+    for row in completed:
+        if row.get("response_model") != MODEL:
+            issues.append("formal_result_model_mismatch")
+        if not isinstance(row.get("parsed_output"), dict):
+            issues.append("formal_result_unparseable")
+        if row.get("input_fingerprints") != fingerprints:
+            issues.append("formal_result_input_fingerprint_mismatch")
+    if len(completed) != len(set(completed_keys)):
+        issues.append("formal_result_count_not_unique")
+    return completed, list(dict.fromkeys(issues))
+
+
 def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: dict[tuple[str, str], dict[str, Any]], system_prompt: str) -> int:
     smoke_report = json.loads(smoke_report_path().read_text(encoding="utf-8")) if smoke_report_path().exists() else None
     if not smoke_report or smoke_report.get("status") != "passed":
         if not run_smoke(config, dataset, packets, system_prompt):
             return 2
+    fingerprints = fixed_input_fingerprints(dataset, packets, system_prompt)
     result_path = ROUND_DIR / "cloud_generation_results.jsonl"
     rows = load_jsonl(result_path) if result_path.exists() else []
-    processed = {(row.get("query_id"), row.get("condition")) for row in rows if row.get("phase") == "formal"}
+    manifest = load_jsonl(manifest_path()) if manifest_path().exists() else []
+    valid_completed, resume_issues = validate_resume_state(rows, manifest, dataset, fingerprints)
+    if resume_issues:
+        print(json.dumps({"status": "resume_state_invalid", "issues": resume_issues, "valid_completed_formal_count": len(valid_completed), "actual_attempt_count": len(manifest)}, ensure_ascii=False))
+        return 2
+    rows = valid_completed
+    processed = {(row.get("query_id"), row.get("condition")) for row in rows}
     formal_requests = len(dataset) * len(FORMAL_CONDITIONS)
-    remaining_requests = formal_requests - len(processed)
-    if existing_attempts() + remaining_requests > config.max_requests:
-        print(json.dumps({"status": "blocked", "reason": "request_budget_exhausted_before_formal"}, ensure_ascii=False))
+    planned_remaining = formal_requests - len(processed)
+    actual_attempt_count = len(manifest)
+    available_remaining = config.max_requests - actual_attempt_count
+    retry_reserve = min(RETRY_LIMIT * 2, max(0, available_remaining - planned_remaining))
+    cost_estimate = estimate_cost(dataset, packets, system_prompt, planned_remaining + retry_reserve)
+    spent_cost = sum(float(row.get("cost_usd") or 0) for row in manifest if isinstance(row.get("cost_usd"), (int, float)))
+    continuation = {
+        "planned_remaining": planned_remaining,
+        "available_remaining": available_remaining,
+        "retry_reserve": retry_reserve,
+        "actual_attempt_count": actual_attempt_count,
+        "spent_cost_usd": spent_cost,
+        "remaining_cost_estimate_usd": cost_estimate["payg_worst_case_usd_estimate"],
+    }
+    if planned_remaining > available_remaining:
+        print(json.dumps({"status": "blocked", "reason": "planned_remaining_exceeds_available", **continuation}, ensure_ascii=False))
+        return 2
+    if spent_cost + float(cost_estimate["payg_worst_case_usd_estimate"]) > config.max_cost_usd:
+        print(json.dumps({"status": "blocked", "reason": "remaining_cost_exceeds_budget", **continuation}, ensure_ascii=False))
         return 2
     for query_row in dataset:
         for condition, _ in FORMAL_CONDITIONS:
@@ -597,7 +717,7 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
                 continue
             packet = packets[(query_row["query_id"], condition)]
             payload = make_payload(system_prompt, query_row["query"], packet)
-            response, info = http_request(config, payload, "formal", query_row["query_id"], condition)
+            response, info = http_request(config, payload, "formal", query_row["query_id"], condition, fingerprints)
             _, parsed, message = parse_content(response or {})
             response_model = (response or {}).get("model") if response else None
             row = evaluate_result(query_row, packet, parsed, response_model, info.get("usage", {}), info.get("latency_ms", 0), info.get("error"))
@@ -610,6 +730,7 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
             if response_model != MODEL:
                 row["failure_types"] = list(dict.fromkeys(row["failure_types"] + ["response_model_mismatch"]))
             row["cost_usd"] = info.get("cost_usd")
+            row["input_fingerprints"] = fingerprints
             rows.append(row)
             append_jsonl(result_path, row)
     metrics = {"round": "008_cloud_generation_upper_bound", "model": MODEL, "conditions": {condition: aggregate([row for row in rows if row["condition"] == condition], config) for condition, _ in FORMAL_CONDITIONS}, "request_attempts": existing_attempts(), "budget_usd": config.max_cost_usd, "credential_source": config.credential_source, "structured_output": {"type": "json_object"}, "thinking": {"type": "disabled"}, "seed": None, "temperature": TEMPERATURE, "top_p": TOP_P}
