@@ -1,0 +1,653 @@
+{
+  "status": "passed",
+  "request_count": 6,
+  "rows": [
+    {
+      "query_id": "mxq-001",
+      "query": "MX-100的温度上限是多少？",
+      "question_type": "answerable",
+      "condition": "oracle_packet",
+      "context_unit_ids": [
+        "unit_427bb9da85d5c2c78e94"
+      ],
+      "packet_text": "[Evidence E1]\nknowledge_unit_id: unit_427bb9da85d5c2c78e94\ndocument_id: doc_0f5597a738e0280100ee\ntitle: mx100_manual.docx\ntitle_path: [\"MX-100 设备维护说明\", \"安全参数\"]\nsource_locator: {\"item_ref\": \"#/texts/3\", \"paragraph_or_table\": 4}\nunit_type: text\ncontent: 设备型号 MX-100，温度上限 75℃，故障代码 E07。",
+      "packet_units": [
+        {
+          "content": "设备型号 MX-100，温度上限 75℃，故障代码 E07。",
+          "document_id": "doc_0f5597a738e0280100ee",
+          "evidence_id": "E1",
+          "knowledge_unit_id": "unit_427bb9da85d5c2c78e94",
+          "source_locator": {
+            "item_ref": "#/texts/3",
+            "paragraph_or_table": 4
+          },
+          "title": "mx100_manual.docx",
+          "title_path": [
+            "MX-100 设备维护说明",
+            "安全参数"
+          ],
+          "unit_type": "text"
+        }
+      ],
+      "reference_answer": "MX-100的温度上限是75℃。",
+      "required_facts": [
+        "MX-100",
+        "温度上限",
+        "75℃"
+      ],
+      "relevant_unit_ids": [
+        "unit_427bb9da85d5c2c78e94"
+      ],
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100的温度上限是75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94"
+        ],
+        "used_facts": [
+          "设备型号 MX-100，温度上限 75℃"
+        ]
+      },
+      "status": "answered",
+      "answer": "MX-100的温度上限是75℃。",
+      "citations": [
+        "unit_427bb9da85d5c2c78e94"
+      ],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": false,
+      "unsupported_used_facts": [],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 406,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 65,
+        "total_tokens": 471
+      },
+      "latency_ms": 1457.6977999968221,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    },
+    {
+      "query_id": "mxq-001",
+      "query": "MX-100的温度上限是多少？",
+      "question_type": "answerable",
+      "condition": "dense_packet",
+      "context_unit_ids": [
+        "unit_427bb9da85d5c2c78e94",
+        "unit_ea417ff8aa45e3b8d3ea",
+        "unit_b85a502fbfddf27ee43b",
+        "unit_4f021d52061a98f6ac53",
+        "unit_d2026ce4866fbfe12c00"
+      ],
+      "packet_text": "[Evidence E1]\nknowledge_unit_id: unit_427bb9da85d5c2c78e94\ndocument_id: doc_0f5597a738e0280100ee\ntitle: mx100_manual.docx\ntitle_path: [\"MX-100 设备维护说明\", \"安全参数\"]\nsource_locator: {\"item_ref\": \"#/texts/3\", \"paragraph_or_table\": 4}\nunit_type: text\ncontent: 设备型号 MX-100，温度上限 75℃，故障代码 E07。\n\n\n[Evidence E2]\nknowledge_unit_id: unit_ea417ff8aa45e3b8d3ea\ndocument_id: doc_901039b11c3a2f7ca32a\ntitle: mx100_scanned.pdf\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 367.3828125, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 27.87298329671224, \"r\": 281.55242919921875, \"t\": 417.3046875}, \"item_ref\": \"#/texts/0\", \"page\": 1}\nunit_type: text\ncontent: MX-100 设备维护说明v1.2 温度上限 75℃；故障代码 E07。\n\n\n[Evidence E3]\nknowledge_unit_id: unit_b85a502fbfddf27ee43b\ndocument_id: doc_094d97eb9951c0d4cae2\ntitle: mx100_brief.pptx\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 381000.0, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 571500.0, \"r\": 11620500.0, \"t\": 1047750.0}, \"item_ref\": \"#/texts/0\", \"slide\": 1}\nunit_type: paragraph\ncontent: MX-100 维护说明\n\n\n[Evidence E4]\nknowledge_unit_id: unit_4f021d52061a98f6ac53\ndocument_id: doc_0ec369a89b03d8b3f600\ntitle: Table 1\ntitle_path: []\nsource_locator: {\"cell_range\": \"A1:B6\", \"item_ref\": \"#/tables/0\", \"sheet\": \"设备信息\"}\nunit_type: table\ncontent: 字段 | 值 型号 | MX-100 版本 | v1.2 温度上限 | 75℃ 故障代码 | E07 日期 | 2026-07-11\n\n\n[Evidence E5]\nknowledge_unit_id: unit_d2026ce4866fbfe12c00\ndocument_id: doc_4f93241a1d55ca1c6102\ntitle: mx100_devices\ntitle_path: []\nsource_locator: {\"rows\": \"1:2\"}\nunit_type: table\ncontent: model | version | max_temp | fault | date MX-100 | v1.2 | 75℃ | E07 | 2026-07-11",
+      "packet_units": [
+        {
+          "content": "设备型号 MX-100，温度上限 75℃，故障代码 E07。",
+          "document_id": "doc_0f5597a738e0280100ee",
+          "evidence_id": "E1",
+          "knowledge_unit_id": "unit_427bb9da85d5c2c78e94",
+          "source_locator": {
+            "item_ref": "#/texts/3",
+            "paragraph_or_table": 4
+          },
+          "title": "mx100_manual.docx",
+          "title_path": [
+            "MX-100 设备维护说明",
+            "安全参数"
+          ],
+          "unit_type": "text"
+        },
+        {
+          "content": "MX-100 设备维护说明v1.2 温度上限 75℃；故障代码 E07。",
+          "document_id": "doc_901039b11c3a2f7ca32a",
+          "evidence_id": "E2",
+          "knowledge_unit_id": "unit_ea417ff8aa45e3b8d3ea",
+          "source_locator": {
+            "bbox": {
+              "b": 367.3828125,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 27.87298329671224,
+              "r": 281.55242919921875,
+              "t": 417.3046875
+            },
+            "item_ref": "#/texts/0",
+            "page": 1
+          },
+          "title": "mx100_scanned.pdf",
+          "title_path": [],
+          "unit_type": "text"
+        },
+        {
+          "content": "MX-100 维护说明",
+          "document_id": "doc_094d97eb9951c0d4cae2",
+          "evidence_id": "E3",
+          "knowledge_unit_id": "unit_b85a502fbfddf27ee43b",
+          "source_locator": {
+            "bbox": {
+              "b": 381000.0,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 571500.0,
+              "r": 11620500.0,
+              "t": 1047750.0
+            },
+            "item_ref": "#/texts/0",
+            "slide": 1
+          },
+          "title": "mx100_brief.pptx",
+          "title_path": [],
+          "unit_type": "paragraph"
+        },
+        {
+          "content": "字段 | 值 型号 | MX-100 版本 | v1.2 温度上限 | 75℃ 故障代码 | E07 日期 | 2026-07-11",
+          "document_id": "doc_0ec369a89b03d8b3f600",
+          "evidence_id": "E4",
+          "knowledge_unit_id": "unit_4f021d52061a98f6ac53",
+          "source_locator": {
+            "cell_range": "A1:B6",
+            "item_ref": "#/tables/0",
+            "sheet": "设备信息"
+          },
+          "title": "Table 1",
+          "title_path": [],
+          "unit_type": "table"
+        },
+        {
+          "content": "model | version | max_temp | fault | date MX-100 | v1.2 | 75℃ | E07 | 2026-07-11",
+          "document_id": "doc_4f93241a1d55ca1c6102",
+          "evidence_id": "E5",
+          "knowledge_unit_id": "unit_d2026ce4866fbfe12c00",
+          "source_locator": {
+            "rows": "1:2"
+          },
+          "title": "mx100_devices",
+          "title_path": [],
+          "unit_type": "table"
+        }
+      ],
+      "reference_answer": "MX-100的温度上限是75℃。",
+      "required_facts": [
+        "MX-100",
+        "温度上限",
+        "75℃"
+      ],
+      "relevant_unit_ids": [
+        "unit_427bb9da85d5c2c78e94"
+      ],
+      "parsed_output": {
+        "status": "answered",
+        "answer": "MX-100的温度上限是75℃。",
+        "citations": [
+          "unit_427bb9da85d5c2c78e94",
+          "unit_ea417ff8aa45e3b8d3ea",
+          "unit_4f021d52061a98f6ac53",
+          "unit_d2026ce4866fbfe12c00"
+        ],
+        "used_facts": [
+          "设备型号 MX-100，温度上限 75℃",
+          "MX-100 设备维护说明v1.2 温度上限 75℃",
+          "型号 MX-100，温度上限 75℃",
+          "model MX-100，max_temp 75℃"
+        ]
+      },
+      "status": "answered",
+      "answer": "MX-100的温度上限是75℃。",
+      "citations": [
+        "unit_427bb9da85d5c2c78e94",
+        "unit_ea417ff8aa45e3b8d3ea",
+        "unit_4f021d52061a98f6ac53",
+        "unit_d2026ce4866fbfe12c00"
+      ],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": true,
+      "unsupported_used_facts": [
+        "model MX-100，max_temp 75℃"
+      ],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 1068,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 175,
+        "total_tokens": 1243
+      },
+      "latency_ms": 2780.840500003251,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    },
+    {
+      "query_id": "mxq-002",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "question_type": "answerable",
+      "condition": "oracle_packet",
+      "context_unit_ids": [
+        "unit_94850904cf039fcc1678"
+      ],
+      "packet_text": "[Evidence E1]\nknowledge_unit_id: unit_94850904cf039fcc1678\ndocument_id: doc_0ec369a89b03d8b3f600\ntitle: Table 2\ntitle_path: []\nsource_locator: {\"cell_range\": \"A1:C4\", \"item_ref\": \"#/tables/1\", \"sheet\": \"故障处理\"}\nunit_type: table\ncontent: 代码 | 现象 | 处理 E07 | 温度过高 | 停止设备并检查散热 E02 | 传感器离线 | 检查连接 E03 | 电源异常 | 断电复位",
+      "packet_units": [
+        {
+          "content": "代码 | 现象 | 处理 E07 | 温度过高 | 停止设备并检查散热 E02 | 传感器离线 | 检查连接 E03 | 电源异常 | 断电复位",
+          "document_id": "doc_0ec369a89b03d8b3f600",
+          "evidence_id": "E1",
+          "knowledge_unit_id": "unit_94850904cf039fcc1678",
+          "source_locator": {
+            "cell_range": "A1:C4",
+            "item_ref": "#/tables/1",
+            "sheet": "故障处理"
+          },
+          "title": "Table 2",
+          "title_path": [],
+          "unit_type": "table"
+        }
+      ],
+      "reference_answer": "E07表示温度过高，应停止设备并检查散热。",
+      "required_facts": [
+        "E07",
+        "温度过高",
+        "停止设备",
+        "检查散热"
+      ],
+      "relevant_unit_ids": [
+        "unit_94850904cf039fcc1678"
+      ],
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，应停止设备并检查散热。",
+        "citations": [
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "E07代码对应现象为温度过高",
+          "E07代码的处理方法为停止设备并检查散热"
+        ]
+      },
+      "status": "answered",
+      "answer": "故障代码E07表示温度过高，应停止设备并检查散热。",
+      "citations": [
+        "unit_94850904cf039fcc1678"
+      ],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": true,
+      "unsupported_used_facts": [
+        "E07代码对应现象为温度过高",
+        "E07代码的处理方法为停止设备并检查散热"
+      ],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 431,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 76,
+        "total_tokens": 507
+      },
+      "latency_ms": 4278.235300000233,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    },
+    {
+      "query_id": "mxq-002",
+      "query": "故障代码E07表示什么，应该怎么处理？",
+      "question_type": "answerable",
+      "condition": "dense_packet",
+      "context_unit_ids": [
+        "unit_5ea191c13e5954131884",
+        "unit_088a259df618945202b2",
+        "unit_4e6240ee45aff210b43d",
+        "unit_94850904cf039fcc1678"
+      ],
+      "packet_text": "[Evidence E1]\nknowledge_unit_id: unit_5ea191c13e5954131884\ndocument_id: doc_deb4bc0096b888192d09\ntitle: mx100_text.pdf\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 754.2232343560827, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 60.0, \"r\": 291.79687520000004, \"t\": 770.1015337078125}, \"item_ref\": \"#/texts/1\", \"page\": 1}\nunit_type: text\ncontent: 温度上限 75℃；故障代码 E07。\n\n\n[Evidence E2]\nknowledge_unit_id: unit_088a259df618945202b2\ndocument_id: doc_094d97eb9951c0d4cae2\ntitle: mx100_brief.pptx\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 1143000.0, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 571500.0, \"r\": 11620500.0, \"t\": 1571625.0}, \"item_ref\": \"#/texts/1\", \"slide\": 1}\nunit_type: paragraph\ncontent: 版本 v1.2 | 2026-07-11 | 温度上限 75℃ | 故障代码 E07\n\n\n[Evidence E3]\nknowledge_unit_id: unit_4e6240ee45aff210b43d\ndocument_id: doc_deb4bc0096b888192d09\ntitle: mx100_text.pdf\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 596.2232343560827, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 60.0, \"r\": 243.1093744, \"t\": 612.1015337078125}, \"item_ref\": \"#/texts/6\", \"page\": 1}\nunit_type: text\ncontent: E07 | 温度过高 | 检查散热\n\n\n[Evidence E4]\nknowledge_unit_id: unit_94850904cf039fcc1678\ndocument_id: doc_0ec369a89b03d8b3f600\ntitle: Table 2\ntitle_path: []\nsource_locator: {\"cell_range\": \"A1:C4\", \"item_ref\": \"#/tables/1\", \"sheet\": \"故障处理\"}\nunit_type: table\ncontent: 代码 | 现象 | 处理 E07 | 温度过高 | 停止设备并检查散热 E02 | 传感器离线 | 检查连接 E03 | 电源异常 | 断电复位",
+      "packet_units": [
+        {
+          "content": "温度上限 75℃；故障代码 E07。",
+          "document_id": "doc_deb4bc0096b888192d09",
+          "evidence_id": "E1",
+          "knowledge_unit_id": "unit_5ea191c13e5954131884",
+          "source_locator": {
+            "bbox": {
+              "b": 754.2232343560827,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 60.0,
+              "r": 291.79687520000004,
+              "t": 770.1015337078125
+            },
+            "item_ref": "#/texts/1",
+            "page": 1
+          },
+          "title": "mx100_text.pdf",
+          "title_path": [],
+          "unit_type": "text"
+        },
+        {
+          "content": "版本 v1.2 | 2026-07-11 | 温度上限 75℃ | 故障代码 E07",
+          "document_id": "doc_094d97eb9951c0d4cae2",
+          "evidence_id": "E2",
+          "knowledge_unit_id": "unit_088a259df618945202b2",
+          "source_locator": {
+            "bbox": {
+              "b": 1143000.0,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 571500.0,
+              "r": 11620500.0,
+              "t": 1571625.0
+            },
+            "item_ref": "#/texts/1",
+            "slide": 1
+          },
+          "title": "mx100_brief.pptx",
+          "title_path": [],
+          "unit_type": "paragraph"
+        },
+        {
+          "content": "E07 | 温度过高 | 检查散热",
+          "document_id": "doc_deb4bc0096b888192d09",
+          "evidence_id": "E3",
+          "knowledge_unit_id": "unit_4e6240ee45aff210b43d",
+          "source_locator": {
+            "bbox": {
+              "b": 596.2232343560827,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 60.0,
+              "r": 243.1093744,
+              "t": 612.1015337078125
+            },
+            "item_ref": "#/texts/6",
+            "page": 1
+          },
+          "title": "mx100_text.pdf",
+          "title_path": [],
+          "unit_type": "text"
+        },
+        {
+          "content": "代码 | 现象 | 处理 E07 | 温度过高 | 停止设备并检查散热 E02 | 传感器离线 | 检查连接 E03 | 电源异常 | 断电复位",
+          "document_id": "doc_0ec369a89b03d8b3f600",
+          "evidence_id": "E4",
+          "knowledge_unit_id": "unit_94850904cf039fcc1678",
+          "source_locator": {
+            "cell_range": "A1:C4",
+            "item_ref": "#/tables/1",
+            "sheet": "故障处理"
+          },
+          "title": "Table 2",
+          "title_path": [],
+          "unit_type": "table"
+        }
+      ],
+      "reference_answer": "E07表示温度过高，应停止设备并检查散热。",
+      "required_facts": [
+        "E07",
+        "温度过高",
+        "停止设备",
+        "检查散热"
+      ],
+      "relevant_unit_ids": [
+        "unit_94850904cf039fcc1678"
+      ],
+      "parsed_output": {
+        "status": "answered",
+        "answer": "故障代码E07表示温度过高，应停止设备并检查散热。",
+        "citations": [
+          "unit_4e6240ee45aff210b43d",
+          "unit_94850904cf039fcc1678"
+        ],
+        "used_facts": [
+          "E07表示温度过高",
+          "E07的处理方法是检查散热",
+          "E07的处理方法是停止设备并检查散热"
+        ]
+      },
+      "status": "answered",
+      "answer": "故障代码E07表示温度过高，应停止设备并检查散热。",
+      "citations": [
+        "unit_4e6240ee45aff210b43d",
+        "unit_94850904cf039fcc1678"
+      ],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": true,
+      "unsupported_used_facts": [
+        "E07表示温度过高",
+        "E07的处理方法是检查散热",
+        "E07的处理方法是停止设备并检查散热"
+      ],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 1013,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 102,
+        "total_tokens": 1115
+      },
+      "latency_ms": 1922.5216999984696,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    },
+    {
+      "query_id": "mxq-022",
+      "query": "MX-100支持蓝牙连接吗？",
+      "question_type": "unanswerable",
+      "condition": "oracle_packet",
+      "context_unit_ids": [],
+      "packet_text": "",
+      "packet_units": [],
+      "reference_answer": null,
+      "required_facts": [],
+      "relevant_unit_ids": [],
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "资料中未提供关于MX-100是否支持蓝牙连接的信息。",
+        "citations": [],
+        "used_facts": []
+      },
+      "status": "insufficient_evidence",
+      "answer": "资料中未提供关于MX-100是否支持蓝牙连接的信息。",
+      "citations": [],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": false,
+      "unsupported_used_facts": [],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 277,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 37,
+        "total_tokens": 314
+      },
+      "latency_ms": 979.4911000062712,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    },
+    {
+      "query_id": "mxq-022",
+      "query": "MX-100支持蓝牙连接吗？",
+      "question_type": "unanswerable",
+      "condition": "dense_packet",
+      "context_unit_ids": [
+        "unit_b85a502fbfddf27ee43b",
+        "unit_bf63107d404eac25b0fa",
+        "unit_12f442be965b3ab2a53c",
+        "unit_d2026ce4866fbfe12c00"
+      ],
+      "packet_text": "[Evidence E1]\nknowledge_unit_id: unit_b85a502fbfddf27ee43b\ndocument_id: doc_094d97eb9951c0d4cae2\ntitle: mx100_brief.pptx\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 381000.0, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 571500.0, \"r\": 11620500.0, \"t\": 1047750.0}, \"item_ref\": \"#/texts/0\", \"slide\": 1}\nunit_type: paragraph\ncontent: MX-100 维护说明\n\n\n[Evidence E2]\nknowledge_unit_id: unit_bf63107d404eac25b0fa\ndocument_id: doc_0f5597a738e0280100ee\ntitle: MX-100 设备维护说明\ntitle_path: [\"MX-100 设备维护说明\"]\nsource_locator: {\"item_ref\": \"#/texts/0\", \"paragraph_or_table\": 1}\nunit_type: title\ncontent: MX-100 设备维护说明\n\n\n[Evidence E3]\nknowledge_unit_id: unit_12f442be965b3ab2a53c\ndocument_id: doc_deb4bc0096b888192d09\ntitle: mx100_text.pdf\ntitle_path: []\nsource_locator: {\"bbox\": {\"b\": 786.2232343560827, \"coord_origin\": \"BOTTOMLEFT\", \"l\": 60.0, \"r\": 257.5078128, \"t\": 802.1015337078125}, \"item_ref\": \"#/texts/0\", \"page\": 1}\nunit_type: text\ncontent: MX-100 设备维护说明 v1.2\n\n\n[Evidence E4]\nknowledge_unit_id: unit_d2026ce4866fbfe12c00\ndocument_id: doc_4f93241a1d55ca1c6102\ntitle: mx100_devices\ntitle_path: []\nsource_locator: {\"rows\": \"1:2\"}\nunit_type: table\ncontent: model | version | max_temp | fault | date MX-100 | v1.2 | 75℃ | E07 | 2026-07-11",
+      "packet_units": [
+        {
+          "content": "MX-100 维护说明",
+          "document_id": "doc_094d97eb9951c0d4cae2",
+          "evidence_id": "E1",
+          "knowledge_unit_id": "unit_b85a502fbfddf27ee43b",
+          "source_locator": {
+            "bbox": {
+              "b": 381000.0,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 571500.0,
+              "r": 11620500.0,
+              "t": 1047750.0
+            },
+            "item_ref": "#/texts/0",
+            "slide": 1
+          },
+          "title": "mx100_brief.pptx",
+          "title_path": [],
+          "unit_type": "paragraph"
+        },
+        {
+          "content": "MX-100 设备维护说明",
+          "document_id": "doc_0f5597a738e0280100ee",
+          "evidence_id": "E2",
+          "knowledge_unit_id": "unit_bf63107d404eac25b0fa",
+          "source_locator": {
+            "item_ref": "#/texts/0",
+            "paragraph_or_table": 1
+          },
+          "title": "MX-100 设备维护说明",
+          "title_path": [
+            "MX-100 设备维护说明"
+          ],
+          "unit_type": "title"
+        },
+        {
+          "content": "MX-100 设备维护说明 v1.2",
+          "document_id": "doc_deb4bc0096b888192d09",
+          "evidence_id": "E3",
+          "knowledge_unit_id": "unit_12f442be965b3ab2a53c",
+          "source_locator": {
+            "bbox": {
+              "b": 786.2232343560827,
+              "coord_origin": "BOTTOMLEFT",
+              "l": 60.0,
+              "r": 257.5078128,
+              "t": 802.1015337078125
+            },
+            "item_ref": "#/texts/0",
+            "page": 1
+          },
+          "title": "mx100_text.pdf",
+          "title_path": [],
+          "unit_type": "text"
+        },
+        {
+          "content": "model | version | max_temp | fault | date MX-100 | v1.2 | 75℃ | E07 | 2026-07-11",
+          "document_id": "doc_4f93241a1d55ca1c6102",
+          "evidence_id": "E4",
+          "knowledge_unit_id": "unit_d2026ce4866fbfe12c00",
+          "source_locator": {
+            "rows": "1:2"
+          },
+          "title": "mx100_devices",
+          "title_path": [],
+          "unit_type": "table"
+        }
+      ],
+      "reference_answer": null,
+      "required_facts": [],
+      "relevant_unit_ids": [],
+      "parsed_output": {
+        "status": "insufficient_evidence",
+        "answer": "资料中未提及MX-100是否支持蓝牙连接。",
+        "citations": [],
+        "used_facts": []
+      },
+      "status": "insufficient_evidence",
+      "answer": "资料中未提及MX-100是否支持蓝牙连接。",
+      "citations": [],
+      "schema_valid": true,
+      "citation_valid": true,
+      "citation_coverage": 1.0,
+      "citation_support": 1.0,
+      "required_fact_recall": 1.0,
+      "answer_correct": true,
+      "status_correct": true,
+      "unsupported_claim": false,
+      "unsupported_used_facts": [],
+      "forbidden_hits": [],
+      "failure_types": [],
+      "response_model": "mimo-v2.5-pro",
+      "usage": {
+        "input_tokens": 870,
+        "cached_tokens": null,
+        "reasoning_tokens": 0,
+        "output_tokens": 35,
+        "total_tokens": 905
+      },
+      "latency_ms": 1114.4735000052606,
+      "phase": "smoke",
+      "structured_output": true,
+      "response_model_correct": true,
+      "thinking_disabled_observed": true,
+      "tools_absent": true,
+      "content_received": true,
+      "retry_count": 0
+    }
+  ],
+  "security_boundary_passed": true,
+  "model": "mimo-v2.5-pro",
+  "structured_output": {
+    "type": "json_object"
+  },
+  "thinking": {
+    "type": "disabled"
+  }
+}

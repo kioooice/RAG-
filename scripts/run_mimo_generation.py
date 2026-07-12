@@ -54,7 +54,9 @@ PAYG_OUTPUT_USD_PER_MTOK = 0.87
 FORBIDDEN_PAYLOAD_PATTERNS = (
     re.compile(r"(?i)(?:[a-z]:\\|[a-z]:/|\\\\)"),
     re.compile(r"(?i)\b[\w.+-]+@[\w-]+\.[\w.-]+\b"),
-    re.compile(r"(?<!\d)\d{3}[- ]?\d{4}[- ]?\d{4}(?!\d)"),
+    re.compile(r"(?<!\d)1[3-9]\d{9}(?!\d)"),
+    re.compile(r"(?<!\d)0\d{2,3}[- ]?\d{7,8}(?!\d)"),
+    re.compile(r"(?<!\d)\d{17}[\dXx](?!\d)"),
     re.compile(r"(?i)\b(?:MIMO_API_KEY|AUTHORIZATION|BEARER)\b"),
     re.compile(r"公司|部门|邮箱|电话|身份证|Notebook|Git"),
 )
@@ -79,6 +81,12 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     with path.open("w", encoding="utf-8", newline="\n") as handle:
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def append_jsonl(path: Path, row: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def safe_payload_check(payload: dict[str, Any]) -> None:
@@ -575,13 +583,18 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
     if not smoke_report or smoke_report.get("status") != "passed":
         if not run_smoke(config, dataset, packets, system_prompt):
             return 2
+    result_path = ROUND_DIR / "cloud_generation_results.jsonl"
+    rows = load_jsonl(result_path) if result_path.exists() else []
+    processed = {(row.get("query_id"), row.get("condition")) for row in rows if row.get("phase") == "formal"}
     formal_requests = len(dataset) * len(FORMAL_CONDITIONS)
-    if existing_attempts() + formal_requests > config.max_requests:
+    remaining_requests = formal_requests - len(processed)
+    if existing_attempts() + remaining_requests > config.max_requests:
         print(json.dumps({"status": "blocked", "reason": "request_budget_exhausted_before_formal"}, ensure_ascii=False))
         return 2
-    rows: list[dict[str, Any]] = []
     for query_row in dataset:
         for condition, _ in FORMAL_CONDITIONS:
+            if (query_row["query_id"], condition) in processed:
+                continue
             packet = packets[(query_row["query_id"], condition)]
             payload = make_payload(system_prompt, query_row["query"], packet)
             response, info = http_request(config, payload, "formal", query_row["query_id"], condition)
@@ -598,7 +611,7 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
                 row["failure_types"] = list(dict.fromkeys(row["failure_types"] + ["response_model_mismatch"]))
             row["cost_usd"] = info.get("cost_usd")
             rows.append(row)
-    write_jsonl(ROUND_DIR / "cloud_generation_results.jsonl", rows)
+            append_jsonl(result_path, row)
     metrics = {"round": "008_cloud_generation_upper_bound", "model": MODEL, "conditions": {condition: aggregate([row for row in rows if row["condition"] == condition], config) for condition, _ in FORMAL_CONDITIONS}, "request_attempts": existing_attempts(), "budget_usd": config.max_cost_usd, "credential_source": config.credential_source, "structured_output": {"type": "json_object"}, "thinking": {"type": "disabled"}, "seed": None, "temperature": TEMPERATURE, "top_p": TOP_P}
     write_json(ROUND_DIR / "metrics.json", metrics)
     write_comparison(rows)
@@ -609,10 +622,9 @@ def run_full(config: CredentialConfig, dataset: list[dict[str, Any]], packets: d
 
 
 def preflight_payloads(dataset: list[dict[str, Any]], packets: dict[tuple[str, str], dict[str, Any]], system_prompt: str) -> None:
-    for query_id in SMOKE_QUERY_IDS:
-        query_row = next(row for row in dataset if row["query_id"] == query_id)
+    for query_row in dataset:
         for condition, _ in FORMAL_CONDITIONS:
-            make_payload(system_prompt, query_row["query"], packets[(query_id, condition)])
+            make_payload(system_prompt, query_row["query"], packets[(query_row["query_id"], condition)])
 
 
 def run_preflight() -> int:
