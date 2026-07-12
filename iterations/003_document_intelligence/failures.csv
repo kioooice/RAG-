@@ -1,0 +1,4 @@
+﻿file,processing_status,failure_stage,error_or_warning,retryable,recommended_action
+mx100_notes_duplicate.md,duplicate,routing_or_conversion,duplicate_of:mx100_notes.md,False,keep unsupported/duplicate policy
+unsupported.bin,unsupported,routing_or_conversion,unsupported_file_type,False,keep unsupported/duplicate policy
+wrong_extension.docx,needs_review,routing_or_conversion,extension_content_mismatch,True,manual review

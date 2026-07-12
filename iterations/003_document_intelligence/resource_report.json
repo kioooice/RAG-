@@ -1,0 +1,211 @@
+{
+  "python": "3.14.2",
+  "python_executable": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-docling\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "environment_path": "D:\\AI-Lab\\envs\\retrieval-adaptation-lab-docling",
+  "environment_bytes": 1440124187,
+  "artifacts_path": "D:\\AI-Lab\\models\\docling\\2.111.0",
+  "model_bytes": 633340089,
+  "model_files": [
+    {
+      "path": "docling-project--docling-layout-heron\\.gitattributes",
+      "bytes": 1519
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\config.json",
+      "bytes": 3268
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\docling_heron_400.png",
+      "bytes": 96925
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\model.safetensors",
+      "bytes": 171658996
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\preprocessor_config.json",
+      "bytes": 444
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\README.md",
+      "bytes": 3219
+    },
+    {
+      "path": "docling-project--docling-models\\.gitattributes",
+      "bytes": 1905
+    },
+    {
+      "path": "docling-project--docling-models\\.gitignore",
+      "bytes": 5180
+    },
+    {
+      "path": "docling-project--docling-models\\config.json",
+      "bytes": 41
+    },
+    {
+      "path": "docling-project--docling-models\\README.md",
+      "bytes": 3413
+    },
+    {
+      "path": "RapidOcr\\torch\\PP-OCRv4\\cls\\ch_ptocr_mobile_v2.0_cls_mobile.pth",
+      "bytes": 588638
+    },
+    {
+      "path": "RapidOcr\\torch\\PP-OCRv4\\det\\ch_PP-OCRv4_det_mobile.pth",
+      "bytes": 14506268
+    },
+    {
+      "path": "RapidOcr\\torch\\PP-OCRv4\\det\\en_PP-OCRv3_det_mobile.pth",
+      "bytes": 2540826
+    },
+    {
+      "path": "RapidOcr\\torch\\PP-OCRv4\\rec\\ch_PP-OCRv4_rec_mobile.pth",
+      "bytes": 26919769
+    },
+    {
+      "path": "RapidOcr\\torch\\PP-OCRv4\\rec\\en_PP-OCRv4_rec_mobile.pth",
+      "bytes": 23761948
+    },
+    {
+      "path": "RapidOcr\\resources\\fonts\\FZYTK.TTF",
+      "bytes": 3241748
+    },
+    {
+      "path": "RapidOcr\\paddle\\PP-OCRv4\\rec\\ch_PP-OCRv4_rec_mobile\\ppocr_keys_v1.txt",
+      "bytes": 26249
+    },
+    {
+      "path": "RapidOcr\\paddle\\PP-OCRv4\\rec\\en_PP-OCRv4_rec_mobile\\en_dict.txt",
+      "bytes": 190
+    },
+    {
+      "path": "RapidOcr\\onnx\\PP-OCRv6\\det\\PP-OCRv6_det_small.onnx",
+      "bytes": 9929594
+    },
+    {
+      "path": "RapidOcr\\onnx\\PP-OCRv6\\rec\\PP-OCRv6_rec_small.onnx",
+      "bytes": 21234383
+    },
+    {
+      "path": "RapidOcr\\onnx\\PP-OCRv4\\cls\\ch_ppocr_mobile_v2.0_cls_mobile.onnx",
+      "bytes": 585532
+    },
+    {
+      "path": "docling-project--docling-models\\model_artifacts\\tableformer\\accurate\\tableformer_accurate.safetensors",
+      "bytes": 212758388
+    },
+    {
+      "path": "docling-project--docling-models\\model_artifacts\\tableformer\\accurate\\tm_config.json",
+      "bytes": 7060
+    },
+    {
+      "path": "docling-project--docling-models\\model_artifacts\\tableformer\\fast\\tableformer_fast.safetensors",
+      "bytes": 145453276
+    },
+    {
+      "path": "docling-project--docling-models\\model_artifacts\\tableformer\\fast\\tm_config.json",
+      "bytes": 7060
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\.gitignore",
+      "bytes": 1
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\CACHEDIR.TAG",
+      "bytes": 195
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\.gitattributes.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\.gitignore.metadata",
+      "bytes": 103
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\config.json.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\README.md.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\trees\\fc0f2d45e2218ea24bce5045f58a389aed16dc23.json",
+      "bytes": 1445
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\model_artifacts\\tableformer\\accurate\\tableformer_accurate.safetensors.metadata",
+      "bytes": 128
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\model_artifacts\\tableformer\\accurate\\tm_config.json.metadata",
+      "bytes": 103
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\model_artifacts\\tableformer\\fast\\tableformer_fast.safetensors.metadata",
+      "bytes": 128
+    },
+    {
+      "path": "docling-project--docling-models\\.cache\\huggingface\\download\\model_artifacts\\tableformer\\fast\\tm_config.json.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\.gitignore",
+      "bytes": 1
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\CACHEDIR.TAG",
+      "bytes": 195
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\.gitattributes.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\config.json.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\docling_heron_400.png.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\model.safetensors.metadata",
+      "bytes": 128
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\preprocessor_config.json.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\download\\README.md.metadata",
+      "bytes": 104
+    },
+    {
+      "path": "docling-project--docling-layout-heron\\.cache\\huggingface\\trees\\8f39ad3c0b4c58e9c2d2c84a38465abf757272d8.json",
+      "bytes": 887
+    }
+  ],
+  "versions": {
+    "docling": "2.111.0",
+    "docling-core": "2.87.0",
+    "docling-parse": "7.8.0",
+    "docling-ibm-models": "3.13.3",
+    "torch": "2.13.0",
+    "rapidocr": "3.9.1",
+    "onnxruntime": "1.27.0"
+  },
+  "device": "cpu",
+  "cuda_available": false,
+  "peak_gpu_bytes": 0,
+  "pip_check": "No broken requirements found.",
+  "offline_repeat": true,
+  "offline_mode_verified": true,
+  "download_budget_estimate_bytes": {
+    "python_packages": 337945499,
+    "docling_models_repo": 358236338
+  },
+  "installation_incident": "Initial command timeout left child processes; a subsequent install hit WinError 32 until those scoped processes were stopped."
+}

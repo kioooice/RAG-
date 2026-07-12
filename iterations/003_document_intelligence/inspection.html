@@ -1,0 +1,162 @@
+<!doctype html><meta charset=utf-8><title>003 Document Intelligence inspection</title>
+<style>body{font:15px system-ui;margin:36px;color:#18212b}table{border-collapse:collapse;width:100%}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}th{background:#17324d;color:white}.ok{color:#18794e}.bad{color:#b42318}pre{white-space:pre-wrap;background:#f5f6f7;padding:16px}</style>
+<h1>003 Document Intelligence 检查</h1><p>文件 12 · KnowledgeUnit 38 · 原 38 项 38/38 · OCR 扩展 12/12</p>
+<h2>文件路由与处理</h2><table><tr><th>文件</th><th>类型</th><th>状态</th><th>解析器</th><th>单元</th><th>秒</th><th>警告</th></tr><tr><td>mx100_brief.pptx</td><td>pptx</td><td>accepted</td><td>docling</td><td>4</td><td>0.02544019999959346</td><td></td></tr><tr><td>mx100_config.json</td><td>json</td><td>accepted</td><td>json</td><td>1</td><td></td><td></td></tr><tr><td>mx100_devices.csv</td><td>csv</td><td>accepted</td><td>csv</td><td>1</td><td></td><td></td></tr><tr><td>mx100_image.png</td><td>png</td><td>accepted</td><td>docling</td><td>6</td><td>4.475982899999963</td><td></td></tr><tr><td>mx100_manual.docx</td><td>docx</td><td>accepted</td><td>docling</td><td>10</td><td>0.08405360000006112</td><td></td></tr><tr><td>mx100_notes.md</td><td>markdown</td><td>accepted</td><td>markdown</td><td>1</td><td></td><td></td></tr><tr><td>mx100_notes_duplicate.md</td><td>markdown</td><td>duplicate</td><td>markdown</td><td>1</td><td></td><td>duplicate_of:mx100_notes.md</td></tr><tr><td>mx100_records.xlsx</td><td>xlsx</td><td>accepted</td><td>docling</td><td>2</td><td>0.010014200000114215</td><td></td></tr><tr><td>mx100_scanned.pdf</td><td>pdf</td><td>accepted</td><td>docling</td><td>5</td><td>2.396517799999856</td><td></td></tr><tr><td>mx100_text.pdf</td><td>pdf</td><td>accepted</td><td>docling</td><td>7</td><td>1.2843887999997605</td><td></td></tr><tr><td>unsupported.bin</td><td>unsupported</td><td>unsupported</td><td>unsupported</td><td>0</td><td></td><td>unsupported_file_type</td></tr><tr><td>wrong_extension.docx</td><td>pdf</td><td>needs_review</td><td>docling</td><td>1</td><td>1.095061099999839</td><td>extension_content_mismatch</td></tr></table>
+<h2>Ground Truth</h2><ul><li class=ok>PASS — route:mx100_manual.docx</li><li class=ok>PASS — status:mx100_manual.docx</li><li class=ok>PASS — route:mx100_text.pdf</li><li class=ok>PASS — status:mx100_text.pdf</li><li class=ok>PASS — route:mx100_scanned.pdf</li><li class=ok>PASS — status:mx100_scanned.pdf</li><li class=ok>PASS — route:mx100_records.xlsx</li><li class=ok>PASS — status:mx100_records.xlsx</li><li class=ok>PASS — route:mx100_brief.pptx</li><li class=ok>PASS — status:mx100_brief.pptx</li><li class=ok>PASS — route:mx100_image.png</li><li class=ok>PASS — status:mx100_image.png</li><li class=ok>PASS — route:mx100_devices.csv</li><li class=ok>PASS — status:mx100_devices.csv</li><li class=ok>PASS — route:mx100_config.json</li><li class=ok>PASS — status:mx100_config.json</li><li class=ok>PASS — route:mx100_notes.md</li><li class=ok>PASS — status:mx100_notes.md</li><li class=ok>PASS — route:wrong_extension.docx</li><li class=ok>PASS — status:wrong_extension.docx</li><li class=ok>PASS — route:mx100_notes_duplicate.md</li><li class=ok>PASS — status:mx100_notes_duplicate.md</li><li class=ok>PASS — route:unsupported.bin</li><li class=ok>PASS — status:unsupported.bin</li><li class=ok>PASS — preserve:MX-100</li><li class=ok>PASS — preserve:75℃</li><li class=ok>PASS — preserve:E07</li><li class=ok>PASS — step:断电</li><li class=ok>PASS — step:清洁滤网</li><li class=ok>PASS — step:重启并记录结果</li><li class=ok>PASS — deterministic_document_ids</li><li class=ok>PASS — deterministic_unit_ids</li><li class=ok>PASS — no_duplicate_units_second_run</li><li class=ok>PASS — word_heading_trace</li><li class=ok>PASS — pdf_page_trace</li><li class=ok>PASS — xlsx_sheet_range</li><li class=ok>PASS — ppt_slide_trace</li><li class=ok>PASS — tables_structured</li><li class=ok>PASS — ocr:mx100_scanned.pdf:meaningful_text</li><li class=ok>PASS — ocr:mx100_scanned.pdf:preserve:MX-100</li><li class=ok>PASS — ocr:mx100_scanned.pdf:preserve:75℃</li><li class=ok>PASS — ocr:mx100_scanned.pdf:preserve:E07</li><li class=ok>PASS — ocr:mx100_scanned.pdf:region</li><li class=ok>PASS — ocr:mx100_scanned.pdf:confidence_report</li><li class=ok>PASS — ocr:mx100_image.png:meaningful_text</li><li class=ok>PASS — ocr:mx100_image.png:preserve:MX-100</li><li class=ok>PASS — ocr:mx100_image.png:preserve:75℃</li><li class=ok>PASS — ocr:mx100_image.png:preserve:E07</li><li class=ok>PASS — ocr:mx100_image.png:region</li><li class=ok>PASS — ocr:mx100_image.png:confidence_report</li></ul><h2>代表性统一知识单元</h2><pre>[
+  {
+    &quot;unit_id&quot;: &quot;unit_b85a502fbfddf27ee43b&quot;,
+    &quot;document_id&quot;: &quot;doc_094d97eb9951c0d4cae2&quot;,
+    &quot;unit_type&quot;: &quot;paragraph&quot;,
+    &quot;title&quot;: &quot;mx100_brief.pptx&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;MX-100 维护说明&quot;,
+    &quot;structured_data&quot;: null,
+    &quot;source_locator&quot;: {
+      &quot;item_ref&quot;: &quot;#/texts/0&quot;,
+      &quot;slide&quot;: 1,
+      &quot;bbox&quot;: {
+        &quot;l&quot;: 571500.0,
+        &quot;t&quot;: 1047750.0,
+        &quot;r&quot;: 11620500.0,
+        &quot;b&quot;: 381000.0,
+        &quot;coord_origin&quot;: &quot;BOTTOMLEFT&quot;
+      }
+    },
+    &quot;metadata&quot;: {
+      &quot;docling_label&quot;: &quot;paragraph&quot;,
+      &quot;section_path&quot;: [],
+      &quot;reading_order&quot;: 1
+    },
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;docling&quot;,
+    &quot;rule_version&quot;: &quot;document-intelligence-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_088a259df618945202b2&quot;,
+    &quot;document_id&quot;: &quot;doc_094d97eb9951c0d4cae2&quot;,
+    &quot;unit_type&quot;: &quot;paragraph&quot;,
+    &quot;title&quot;: &quot;mx100_brief.pptx&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;版本 v1.2 | 2026-07-11 | 温度上限 75℃ | 故障代码 E07&quot;,
+    &quot;structured_data&quot;: null,
+    &quot;source_locator&quot;: {
+      &quot;item_ref&quot;: &quot;#/texts/1&quot;,
+      &quot;slide&quot;: 1,
+      &quot;bbox&quot;: {
+        &quot;l&quot;: 571500.0,
+        &quot;t&quot;: 1571625.0,
+        &quot;r&quot;: 11620500.0,
+        &quot;b&quot;: 1143000.0,
+        &quot;coord_origin&quot;: &quot;BOTTOMLEFT&quot;
+      }
+    },
+    &quot;metadata&quot;: {
+      &quot;docling_label&quot;: &quot;paragraph&quot;,
+      &quot;section_path&quot;: [],
+      &quot;reading_order&quot;: 2
+    },
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;docling&quot;,
+    &quot;rule_version&quot;: &quot;document-intelligence-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_1d7396a1c70ac608332a&quot;,
+    &quot;document_id&quot;: &quot;doc_094d97eb9951c0d4cae2&quot;,
+    &quot;unit_type&quot;: &quot;paragraph&quot;,
+    &quot;title&quot;: &quot;mx100_brief.pptx&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;维护流程：1. 断电 2. 清洁滤网 3. 重启并记录结果\n警告：温度达到75℃时立即停机。&quot;,
+    &quot;structured_data&quot;: null,
+    &quot;source_locator&quot;: {
+      &quot;item_ref&quot;: &quot;#/texts/2&quot;,
+      &quot;slide&quot;: 1,
+      &quot;bbox&quot;: {
+        &quot;l&quot;: 571500.0,
+        &quot;t&quot;: 2857500.0,
+        &quot;r&quot;: 11620500.0,
+        &quot;b&quot;: 1809750.0,
+        &quot;coord_origin&quot;: &quot;BOTTOMLEFT&quot;
+      }
+    },
+    &quot;metadata&quot;: {
+      &quot;docling_label&quot;: &quot;paragraph&quot;,
+      &quot;section_path&quot;: [],
+      &quot;reading_order&quot;: 3
+    },
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;docling&quot;,
+    &quot;rule_version&quot;: &quot;document-intelligence-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_d2ea24bd55aa60e58786&quot;,
+    &quot;document_id&quot;: &quot;doc_094d97eb9951c0d4cae2&quot;,
+    &quot;unit_type&quot;: &quot;table&quot;,
+    &quot;title&quot;: &quot;Table 4&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;代码 | 现象 | 处理\nE07 | 温度过高 | 检查散热\nE02 | 传感器离线 | 检查连接&quot;,
+    &quot;structured_data&quot;: [
+      [
+        &quot;代码&quot;,
+        &quot;现象&quot;,
+        &quot;处理&quot;
+      ],
+      [
+        &quot;E07&quot;,
+        &quot;温度过高&quot;,
+        &quot;检查散热&quot;
+      ],
+      [
+        &quot;E02&quot;,
+        &quot;传感器离线&quot;,
+        &quot;检查连接&quot;
+      ]
+    ],
+    &quot;source_locator&quot;: {
+      &quot;item_ref&quot;: &quot;#/tables/0&quot;,
+      &quot;slide&quot;: 1,
+      &quot;bbox&quot;: {
+        &quot;l&quot;: 857250.0,
+        &quot;t&quot;: 5524500.0,
+        &quot;r&quot;: 10953750.0,
+        &quot;b&quot;: 3238500.0,
+        &quot;coord_origin&quot;: &quot;BOTTOMLEFT&quot;
+      }
+    },
+    &quot;metadata&quot;: {
+      &quot;docling_label&quot;: &quot;table&quot;,
+      &quot;section_path&quot;: [],
+      &quot;reading_order&quot;: 4
+    },
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;docling&quot;,
+    &quot;rule_version&quot;: &quot;document-intelligence-v0.1&quot;
+  },
+  {
+    &quot;unit_id&quot;: &quot;unit_5a011d6f4cc5f7bf21e8&quot;,
+    &quot;document_id&quot;: &quot;doc_bbb97b0b83da4f6606ed&quot;,
+    &quot;unit_type&quot;: &quot;record&quot;,
+    &quot;title&quot;: &quot;mx100_config&quot;,
+    &quot;section_path&quot;: [],
+    &quot;text&quot;: &quot;{\&quot;model\&quot;: \&quot;MX-100\&quot;, \&quot;version\&quot;: \&quot;v1.2\&quot;, \&quot;max_temperature\&quot;: \&quot;75℃\&quot;, \&quot;fault_code\&quot;: \&quot;E07\&quot;, \&quot;steps\&quot;: [\&quot;断电\&quot;, \&quot;清洁滤网\&quot;, \&quot;重启并记录结果\&quot;], \&quot;warning\&quot;: \&quot;温度达到75℃时立即停机\&quot;, \&quot;date\&quot;: \&quot;2026-07-11\&quot;}&quot;,
+    &quot;structured_data&quot;: {
+      &quot;model&quot;: &quot;MX-100&quot;,
+      &quot;version&quot;: &quot;v1.2&quot;,
+      &quot;max_temperature&quot;: &quot;75℃&quot;,
+      &quot;fault_code&quot;: &quot;E07&quot;,
+      &quot;steps&quot;: [
+        &quot;断电&quot;,
+        &quot;清洁滤网&quot;,
+        &quot;重启并记录结果&quot;
+      ],
+      &quot;warning&quot;: &quot;温度达到75℃时立即停机&quot;,
+      &quot;date&quot;: &quot;2026-07-11&quot;
+    },
+    &quot;source_locator&quot;: {
+      &quot;json_path&quot;: &quot;$&quot;
+    },
+    &quot;metadata&quot;: {},
+    &quot;quality_score&quot;: 1.0,
+    &quot;parser_name&quot;: &quot;json&quot;,
+    &quot;rule_version&quot;: &quot;ingestion-rules-v0.1&quot;
+  }
+]</pre>
