@@ -1,0 +1,304 @@
+{
+  "study": "006_context_and_evidence_assembly",
+  "dataset": {
+    "version": "006-v2",
+    "path": "D:\\Projects\\study\\retrieval-adaptation-lab\\iterations\\006_context_and_evidence_assembly\\evaluation_dataset_v2.jsonl",
+    "sha256": "f0d0c8851006b9fbff6dde94c7bb51aed807502036a751187849d8cc1453d685",
+    "query_count": 30,
+    "answerable": 20,
+    "unanswerable": 10,
+    "required_fact_count": 46
+  },
+  "fixed_configuration": {
+    "dense_model": "BAAI/bge-m3",
+    "dense_top_k": 5,
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "gguf_sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "llama_cpp": "b9968",
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 1,
+    "seed": 42,
+    "reasoning": "off",
+    "context_size": 8192,
+    "max_tokens": 256,
+    "packet_rule_version": "evidence-packet-v0.1",
+    "max_packet_chars": 16000,
+    "system_prompt_sha256": "1796ebce2b83cca1991ceb89e599d58de7637bfad2945ac69ca6e3e3c4e9d111"
+  },
+  "corpus": {
+    "knowledge_unit_count": 29,
+    "evidence_units_sha256": "4d0f27ab79e33d8ce1b24893410c2fff885c200734e796b9020dbb595f84ef27"
+  },
+  "evidence_completeness": {
+    "oracle": 1.0,
+    "dense": 1.0,
+    "oracle_context_required_fact_coverage": 1.0,
+    "dense_context_required_fact_coverage": 1.0,
+    "retrieval_top5_matches_005": true
+  },
+  "conditions": {
+    "baseline_dense": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.7,
+      "answer_correctness_all": 0.8,
+      "required_fact_recall": 0.8695652173913043,
+      "unsupported_claim_rate": 0.1,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.8,
+      "citation_support_rate": 0.8,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "average": 10300.28586666643,
+        "p50": 9351.418349999221,
+        "p95": 17699.801999999905,
+        "first_token_average": 4549.492449013267
+      },
+      "input_tokens": 481.46666666666664,
+      "output_tokens": 73.9,
+      "failure_types": {
+        "schema_error": 0,
+        "false_refusal": 4,
+        "missed_abstention": 0,
+        "model_omission": 4,
+        "conflict_fact": 0,
+        "citation_error": 4
+      }
+    },
+    "oracle_packet": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.65,
+      "answer_correctness_all": 0.7666666666666667,
+      "required_fact_recall": 0.7391304347826086,
+      "unsupported_claim_rate": 0.06666666666666667,
+      "citation_validity_answered": 0.8125,
+      "citation_validity_selected_answered": 0.8125,
+      "citation_coverage_all_answerable": 0.65,
+      "citation_support_rate": 0.65,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "average": 6518.265733333828,
+        "p50": 6231.35645000184,
+        "p95": 11155.11787500145,
+        "first_token_average": 2351.800636120717
+      },
+      "input_tokens": 380.3666666666667,
+      "output_tokens": 55.7,
+      "failure_types": {
+        "schema_error": 0,
+        "false_refusal": 4,
+        "missed_abstention": 0,
+        "model_omission": 7,
+        "conflict_fact": 0,
+        "citation_error": 7
+      }
+    },
+    "dense_packet": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.8,
+      "answer_correctness_all": 0.8666666666666667,
+      "required_fact_recall": 0.8043478260869565,
+      "unsupported_claim_rate": 0.23333333333333334,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.85,
+      "citation_support_rate": 0.85,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.1,
+      "json_schema_pass_rate": 0.9666666666666667,
+      "latency_ms": {
+        "average": 21767.708016667046,
+        "p50": 19415.931900000942,
+        "p95": 32534.786054999855,
+        "first_token_average": 13407.177434247042
+      },
+      "input_tokens": 991.1,
+      "output_tokens": 92.43333333333334,
+      "failure_types": {
+        "schema_error": 1,
+        "false_refusal": 2,
+        "missed_abstention": 0,
+        "model_omission": 4,
+        "conflict_fact": 0,
+        "citation_error": 3
+      }
+    },
+    "oracle_extract": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.25,
+      "answer_correctness_all": 0.5,
+      "required_fact_recall": 0.43478260869565216,
+      "unsupported_claim_rate": 0.0,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.45,
+      "citation_support_rate": 0.45,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.55,
+      "json_schema_pass_rate": 0.3333333333333333,
+      "latency_ms": {
+        "average": 3845.955213333582,
+        "p50": 3670.8282500003406,
+        "p95": 5811.676835001707,
+        "first_token_average": 1560.3327550254144
+      },
+      "input_tokens": 247.43333333333334,
+      "output_tokens": 32.233333333333334,
+      "failure_types": {
+        "schema_error": 20,
+        "false_refusal": 11,
+        "missed_abstention": 0,
+        "model_omission": 15,
+        "conflict_fact": 0,
+        "citation_error": 20
+      }
+    },
+    "dense_extract": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answerable_correctness": 0.2,
+      "answer_correctness_all": 0.4666666666666667,
+      "required_fact_recall": 0.4782608695652174,
+      "unsupported_claim_rate": 0.0,
+      "citation_validity_answered": 1.0,
+      "citation_validity_selected_answered": 1.0,
+      "citation_coverage_all_answerable": 0.55,
+      "citation_support_rate": 0.55,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.45,
+      "json_schema_pass_rate": 0.4,
+      "latency_ms": {
+        "average": 4166.041570000016,
+        "p50": 2934.6495999980107,
+        "p95": 9609.590765001298,
+        "first_token_average": 1475.0431123810195
+      },
+      "input_tokens": 270.5,
+      "output_tokens": 37.53333333333333,
+      "failure_types": {
+        "schema_error": 18,
+        "false_refusal": 9,
+        "missed_abstention": 0,
+        "model_omission": 15,
+        "conflict_fact": 0,
+        "citation_error": 18
+      }
+    }
+  },
+  "extraction": {
+    "stage1_schema_pass_rate": 0.9666666666666667,
+    "evidence_extraction_precision": 0.8458333333333333,
+    "evidence_extraction_recall": 0.7805555555555556,
+    "verbatim_support_valid_rate": 0.8775510204081632,
+    "answerable_only_precision": 0.76875,
+    "answerable_only_recall": 0.6708333333333333,
+    "oracle": {
+      "stage1_schema_pass_rate": 1.0,
+      "precision": 0.9333333333333333,
+      "recall": 0.788888888888889
+    },
+    "dense": {
+      "stage1_schema_pass_rate": 0.9333333333333333,
+      "precision": 0.7583333333333333,
+      "recall": 0.7722222222222223
+    }
+  },
+  "baseline_reproduction": {
+    "exact_output_matches": 26,
+    "status_and_answer_matches": 29,
+    "total_queries": 30,
+    "exact_match_rate": 0.8666666666666667,
+    "status_and_answer_match_rate": 0.9666666666666667,
+    "mismatches": [
+      "mxq-009",
+      "mxq-010",
+      "mxq-020",
+      "mxq-028"
+    ],
+    "interpretation": "固定参数下语义结果可复现，但llama.cpp CPU运行的部分引用集合或标点存在非逐字差异；不把这些差异当作新检索器变化。"
+  },
+  "packet": {
+    "average_context_chars": 932.2066666666667,
+    "duplicate_evidence_count": 54,
+    "truncated_evidence_count": 0,
+    "average_context_tokens_observed": 474.17333333333335
+  },
+  "resources": {
+    "model_load_seconds": 3.233059999998659,
+    "dense_build_seconds": 3.9922038999975484,
+    "peak_evaluator_rss_bytes": 2004901888,
+    "peak_server_rss_bytes": 9000759296,
+    "peak_total_rss_bytes": 9374470144,
+    "peak_gpu_memory_mib_observed": 809,
+    "gpu_backend_used": "cpu"
+  },
+  "decision": {
+    "default_generation_orchestration": "not_confirmed",
+    "oracle_completeness_required_for_interpretation": true,
+    "next_action_trigger": "compare stronger model only if complete Oracle still fails; no automatic download"
+  },
+  "round5_reference_metrics": {
+    "dense_rag": {
+      "query_count": 30,
+      "answerable_count": 20,
+      "unanswerable_count": 10,
+      "answer_correctness": 0.8,
+      "answerable_correctness": 0.7,
+      "required_fact_recall": 0.8695652173913043,
+      "unsupported_claim_rate": 0.4,
+      "citation_validity": 1.0,
+      "citation_support_rate": 0.8,
+      "unanswerable_abstention_rate": 1.0,
+      "false_refusal_rate": 0.2,
+      "json_schema_pass_rate": 1.0,
+      "latency_ms": {
+        "total_generation": {
+          "average": 9579.720323333398,
+          "p50": 8541.094399999565,
+          "p95": 16160.633439999763
+        },
+        "first_token": {
+          "average": 4281.759041985956,
+          "p50": 4102.365134502925,
+          "p95": 5470.0513574858
+        }
+      },
+      "input_tokens": {
+        "average": 481.46666666666664,
+        "p50": 477.0,
+        "p95": 537.05
+      },
+      "output_tokens": {
+        "average": 75.56666666666666,
+        "p50": 67.0,
+        "p95": 141.75
+      },
+      "tokens_per_second": {
+        "average": 14.366785672598564,
+        "p50": 14.369283440398753,
+        "p95": 15.099172093291918
+      },
+      "failure_counts": {
+        "retrieval_failure": 0,
+        "generation_failure": 6,
+        "citation_failure": 0,
+        "any_failure": 6
+      }
+    }
+  }
+}
